@@ -5,10 +5,15 @@ import Input from '../../../components/form/Input'
 
 const validationSchema = z
     .object({
-        fullName: z
+        firstName: z
             .string()
-            .min(1, 'Full name is a required field')
-            .min(3, 'Full name must be at least 3 characters')
+            .min(1, 'First name is a required field')
+            .min(3, 'First name must be at least 3 characters')
+            .trim(),
+        secondName: z
+            .string()
+            .min(1, 'Second name is a required field')
+            .min(3, 'Second name must be at least 3 characters')
             .trim(),
         email: z
             .string()
@@ -60,12 +65,20 @@ const SignupForm = () => {
             className=" flex w-full flex-col gap-2"
             onSubmit={handleSubmit(onSubmit)}
         >
-            <Input
-                {...register('fullName')}
-                isInvalid={!!errors.fullName}
-                errorMessage={errors?.fullName?.message}
-                placeholder="Full name"
-            />
+            <div className=" flex flex-col sm:flex-row sm:gap-3">
+                <Input
+                    {...register('firstName')}
+                    isInvalid={!!errors.firstName}
+                    errorMessage={errors?.firstName?.message}
+                    placeholder="First name"
+                />
+                <Input
+                    {...register('secondName')}
+                    isInvalid={!!errors.secondName}
+                    errorMessage={errors?.secondName?.message}
+                    placeholder="Second name"
+                />
+            </div>
             <Input
                 {...register('email')}
                 isInvalid={!!errors.email}
