@@ -1,8 +1,7 @@
-import React from 'react'
 import { Login } from '../features/authentication/index'
 
-const LoginPage = () => {
+const Auth = () => {
     return <Login />
 }
 
-export default LoginPage
+export default Auth

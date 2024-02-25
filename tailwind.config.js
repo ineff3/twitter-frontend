@@ -16,6 +16,7 @@ export default {
                 dim: {
                     ...require('daisyui/src/theming/themes')['dim'],
                     'base-100': '#18191C',
+                    'base-300': '#1D2026',
                     'base-content': '#9099AF',
                     accent: '#363F54',
                     primary: '#1A5CFF',

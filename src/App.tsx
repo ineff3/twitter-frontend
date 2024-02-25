@@ -6,13 +6,16 @@ import Notifications from './pages/Notifications'
 import Messages from './pages/Messages'
 import Bookmarks from './pages/Bookmarks'
 import Premium from './pages/Premium'
-import LoginPage from './pages/Login'
+import Auth from './pages/Auth'
+import SignupPage from './pages/Signup'
 
 const App = () => {
     return (
         <>
             <Routes>
-                <Route path="/login" element={<LoginPage />} />
+                <Route path="auth" element={<Auth />}>
+                    <Route path="signup" element={<SignupPage />} />
+                </Route>
                 <Route element={<BaseLayout />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/search" element={<Search />} />

@@ -1,8 +1,9 @@
+import { Link, Outlet } from 'react-router-dom'
 import LoginForm from './LoginForm'
 
 const Login = () => {
     return (
-        <div className=" font-montserrat mx-auto flex w-full max-w-screen-lg flex-auto justify-between">
+        <div className=" mx-auto flex w-full max-w-screen-lg flex-auto justify-between font-montserrat">
             <div className=" flex w-full max-w-xl flex-col border-r border-accent pb-5 pl-7 pt-10 text-secondary">
                 <div>
                     <p className="  mb-5 max-w-md text-3xl font-bold ">
@@ -40,7 +41,9 @@ const Login = () => {
                     </svg>
                     <p className=" text-[12px]">
                         Don`t have an account?{' '}
-                        <span className=" link text-primary ">Signup</span>
+                        <Link to="signup" className=" link text-primary ">
+                            Signup
+                        </Link>
                     </p>
                 </div>
                 <p className=" text-3xl font-bold text-secondary">
@@ -48,6 +51,7 @@ const Login = () => {
                 </p>
                 <LoginForm />
             </div>
+            <Outlet />
         </div>
     )
 }
