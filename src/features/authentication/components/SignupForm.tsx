@@ -2,19 +2,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import Input from '../../../components/form/Input'
+import { requiredStringFieldSchema } from '../../../utils/schemeTransformations'
+import { useSignup } from '../services/auth-actions'
+import { AxiosError } from 'axios'
 
 const validationSchema = z
     .object({
-        firstName: z
-            .string()
-            .min(1, 'First name is a required field')
-            .min(3, 'First name must be at least 3 characters')
-            .trim(),
-        secondName: z
-            .string()
-            .min(1, 'Second name is a required field')
-            .min(3, 'Second name must be at least 3 characters')
-            .trim(),
+        firstName: requiredStringFieldSchema('First name', 3),
+        secondName: requiredStringFieldSchema('Second name', 3),
         email: z
             .string()
             .min(1, 'Email is a required filed')
@@ -23,16 +18,8 @@ const validationSchema = z
                 'Email address is not valid'
             )
             .trim(),
-        password: z
-            .string()
-            .min(1, 'Password is a required field')
-            .min(6, 'Password must be at least 6 characters')
-            .trim(),
-        confirmPassword: z
-            .string()
-            .min(1, 'Confirm password is a required filed')
-            .min(6, 'Confirm password must be at least 6 characters')
-            .trim(),
+        password: requiredStringFieldSchema('Password', 6),
+        confirmPassword: requiredStringFieldSchema('Confirm password', 6),
     })
     .refine(
         (data) => {
@@ -57,8 +44,18 @@ const SignupForm = () => {
             password: '',
         },
     })
+
+    const signupMutation = useSignup()
+
     const onSubmit: SubmitHandler<formType> = (data) => {
-        console.log(data)
+        signupMutation.mutate(data, {
+            onError: (err) => {
+                console.log(err)
+            },
+            onSuccess: () => {
+                console.log('Successfully signuped')
+            },
+        })
     }
     return (
         <form
