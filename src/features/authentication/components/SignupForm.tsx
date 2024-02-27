@@ -32,7 +32,10 @@ const validationSchema = z
     )
 type formType = z.infer<typeof validationSchema>
 
-const SignupForm = () => {
+interface Props {
+    setErrorMessage: (value: string) => void
+}
+const SignupForm = ({ setErrorMessage }: Props) => {
     const {
         register,
         handleSubmit,
@@ -51,6 +54,11 @@ const SignupForm = () => {
         signupMutation.mutate(data, {
             onError: (err) => {
                 console.log(err)
+                if (err instanceof AxiosError) {
+                    setErrorMessage(err.response?.data?.message)
+                } else {
+                    setErrorMessage(err.message)
+                }
             },
             onSuccess: () => {
                 console.log('Successfully signuped')
