@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from './actions'
 
-export const useOptimisticMutation = <T, S>(
-    func: (data: S) => Promise<S>,
+export const useOptimisticMutation = <T, S, R>(
+    func: (data: S) => Promise<R>,
     url?: string,
     params?: object,
     updater?: (oldData: T, newData: S) => T
@@ -46,14 +46,14 @@ export const useOptimisticMutation = <T, S>(
     })
 }
 
-export const usePost = <T, S>(
+export const usePost = <T, S, R>(
     path: string,
     url?: string,
     params?: object,
     updater?: (oldData: T, newData: S) => T
 ) => {
     return useOptimisticMutation(
-        (data) => api.post<S>(path, data),
+        (data) => api.post<R>(path, data),
         url,
         params,
         updater

@@ -2,6 +2,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import Input from '../../../components/form/Input'
+import { useLogin } from '../services/auth-actions'
+import Cookies from 'js-cookie'
+import { useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 
 const validationSchema = z.object({
     email: z
@@ -29,8 +33,22 @@ const LoginForm = () => {
             password: '',
         },
     })
+    const loginMutation = useLogin()
+    const queryClient = useQueryClient()
+    const navigate = useNavigate()
+
     const onSubmit: SubmitHandler<formType> = (data) => {
-        console.log(data)
+        loginMutation.mutate(data, {
+            onError: (err) => {
+                console.log(err)
+            },
+            onSuccess(data) {
+                console.log(data)
+                Cookies.set('token', data.token)
+                queryClient.invalidateQueries()
+                navigate('/')
+            },
+        })
     }
     return (
         <div className=" flex flex-col gap-5">
