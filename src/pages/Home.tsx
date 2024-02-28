@@ -1,4 +1,3 @@
-import React from 'react'
 import { PostTabsWrapper } from '../features/posts'
 
 const Home = () => {

@@ -16,3 +16,14 @@ export interface ILoginResponse {
     token: string
     user: IUser
 }
+
+// Auth Context
+export interface DataContextType {
+    auth: AuthData
+    setAuth: (values: AuthData) => void
+}
+
+export interface AuthData {
+    user: IUser
+    accessToken: string
+}

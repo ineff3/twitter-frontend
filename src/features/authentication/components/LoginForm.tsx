@@ -6,6 +6,7 @@ import { useLogin } from '../services/auth-actions'
 import Cookies from 'js-cookie'
 import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '..'
 
 const validationSchema = z.object({
     email: z
@@ -36,6 +37,7 @@ const LoginForm = () => {
     const loginMutation = useLogin()
     const queryClient = useQueryClient()
     const navigate = useNavigate()
+    const { setAuth } = useAuth()
 
     const onSubmit: SubmitHandler<formType> = (data) => {
         loginMutation.mutate(data, {
@@ -47,6 +49,8 @@ const LoginForm = () => {
                 Cookies.set('token', data.token)
                 queryClient.invalidateQueries()
                 navigate('/')
+                // Filling context
+                setAuth({ user: data.user, accessToken: data.token })
             },
         })
     }

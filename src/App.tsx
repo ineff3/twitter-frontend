@@ -1,21 +1,23 @@
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import BaseLayout from './layouts/BaseLayout'
-import Home from './pages/Home'
-import Search from './pages/Search'
-import Notifications from './pages/Notifications'
-import Messages from './pages/Messages'
-import Bookmarks from './pages/Bookmarks'
-import Premium from './pages/Premium'
-import Auth from './pages/Auth'
-import SignupPage from './pages/Signup'
 import { RequireAuth, RequireUnAuth } from './features/authentication/index'
+import {
+    Auth,
+    Bookmarks,
+    Home,
+    Messages,
+    Notifications,
+    Premium,
+    Search,
+    SignupPage,
+} from './pages'
 
 const App = () => {
     return (
         <>
             <Routes>
                 <Route element={<RequireUnAuth />}>
-                    <Route path="auth" element={<Auth />}>
+                    <Route path="/auth" element={<Auth />}>
                         <Route path="signup" element={<SignupPage />} />
                     </Route>
                 </Route>
@@ -39,17 +41,3 @@ const App = () => {
 }
 
 export default App
-
-interface Props {
-    path: string
-    element: JSX.Element
-    isAuthenticated: boolean
-}
-const AuthenticatedRoute = ({ element, isAuthenticated, path }: Props) => {
-    return (
-        <Route
-            path={path}
-            element={isAuthenticated ? element : <Navigate to={'/auth'} />}
-        />
-    )
-}

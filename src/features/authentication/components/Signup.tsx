@@ -9,7 +9,7 @@ const Signup = () => {
     const navigate = useNavigate()
     const { show, close, visible } = useModal(true)
     const closeWithPageShift = () => {
-        navigate('/auth')
+        navigate(-1)
         close()
     }
     return (
