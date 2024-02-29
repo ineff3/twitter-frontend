@@ -1,5 +1,16 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { api } from './actions'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useApi } from './actions'
+import { useNavigate } from 'react-router-dom'
+
+export const useGet = <T>(path: string, url?: string, params?: object) => {
+    const { get } = useApi()
+    const navigate = useNavigate()
+    const qKey = params ? [url, params] : [url]
+    return useQuery({
+        queryKey: qKey,
+        queryFn: () => get<T>(path),
+    })
+}
 
 export const useOptimisticMutation = <T, S, R>(
     func: (data: S) => Promise<R>,
@@ -52,8 +63,9 @@ export const usePost = <T, S, R>(
     params?: object,
     updater?: (oldData: T, newData: S) => T
 ) => {
+    const { post } = useApi()
     return useOptimisticMutation(
-        (data) => api.post<R>(path, data),
+        (data) => post<R>(path, data),
         url,
         params,
         updater
@@ -66,8 +78,9 @@ export const useUpdate = <T, S>(
     params?: object,
     updater?: (oldData: T, updatedData: S) => T
 ) => {
+    const { patch } = useApi()
     return useOptimisticMutation(
-        (data) => api.patch(path, data),
+        (data) => patch(path, data),
         url,
         params,
         updater
@@ -80,8 +93,9 @@ export const useDelete = <T>(
     params?: object,
     updater?: (oldData: T, id: string | number) => T
 ) => {
+    const { delete: del } = useApi()
     return useOptimisticMutation(
-        (id) => api.delete(`${path}/${id}`),
+        (id) => del(`${path}/${id}`),
         url,
         params,
         updater
