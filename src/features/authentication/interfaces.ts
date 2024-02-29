@@ -12,9 +12,7 @@ export interface ILoginData {
 export interface IUser extends ISignupData {}
 
 export interface ILoginResponse {
-    message: string
-    token: string
-    user: IUser
+    accessToken: string
 }
 
 // Auth Context
@@ -24,6 +22,5 @@ export interface DataContextType {
 }
 
 export interface AuthData {
-    user: IUser
     accessToken: string
 }
