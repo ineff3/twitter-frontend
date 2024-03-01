@@ -4,11 +4,13 @@ import { useApi } from '../utils/api/actions'
 import { useGet } from '../utils/api/queries'
 import { useNavigate } from 'react-router-dom'
 import useAuthentication from '../features/authentication/hooks/useAuthentication'
+import useLogout from '../features/authentication/hooks/useLogout'
 
 const Search = () => {
     const navigate = useNavigate()
     const refresh = useRefreshToken()
     const { setAccessToken } = useAuthentication()
+    const logout = useLogout()
     // const { data, status, error } = useGet('users', 'users')
 
     const { get } = useApi()
@@ -30,6 +32,15 @@ const Search = () => {
         <div>
             <button onClick={refresh} className=" btn btn-primary">
                 lol
+            </button>
+            <button
+                onClick={async () => {
+                    await logout()
+                    navigate('/auth')
+                }}
+                className=" btn btn-success"
+            >
+                Logout
             </button>
         </div>
     )

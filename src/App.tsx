@@ -11,6 +11,7 @@ import {
     Search,
     SignupPage,
 } from './pages'
+import PersistLogin from './features/authentication/components/PersistLogin'
 
 const App = () => {
     return (
@@ -22,17 +23,19 @@ const App = () => {
                     </Route>
                 </Route>
 
-                <Route element={<RequireAuth />}>
-                    <Route element={<BaseLayout />}>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/search" element={<Search />} />
-                        <Route
-                            path="/notifications"
-                            element={<Notifications />}
-                        />
-                        <Route path="/messages" element={<Messages />} />
-                        <Route path="/bookmarks" element={<Bookmarks />} />
-                        <Route path="/premium" element={<Premium />} />
+                <Route element={<PersistLogin />}>
+                    <Route element={<RequireAuth />}>
+                        <Route element={<BaseLayout />}>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/search" element={<Search />} />
+                            <Route
+                                path="/notifications"
+                                element={<Notifications />}
+                            />
+                            <Route path="/messages" element={<Messages />} />
+                            <Route path="/bookmarks" element={<Bookmarks />} />
+                            <Route path="/premium" element={<Premium />} />
+                        </Route>
                     </Route>
                 </Route>
             </Routes>
