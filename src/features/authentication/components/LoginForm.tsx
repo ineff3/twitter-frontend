@@ -7,6 +7,7 @@ import Cookies from 'js-cookie'
 import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '..'
+import { ACCESS_TOKEN_KEY } from '../../../routes'
 
 const validationSchema = z.object({
     email: z
@@ -46,11 +47,9 @@ const LoginForm = () => {
             },
             onSuccess(data) {
                 console.log(data)
-                Cookies.set('token', data.token)
-                queryClient.invalidateQueries()
                 navigate('/')
-                // Filling context
-                setAuth({ user: data.user, accessToken: data.token })
+                queryClient.invalidateQueries()
+                queryClient.setQueryData([ACCESS_TOKEN_KEY], data.accessToken)
             },
         })
     }
