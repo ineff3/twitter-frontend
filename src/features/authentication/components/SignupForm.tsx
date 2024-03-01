@@ -3,8 +3,8 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import Input from '../../../components/form/Input'
 import { requiredStringFieldSchema } from '../../../utils/schemeTransformations'
-import { useSignup } from '../services/auth-actions'
 import { AxiosError } from 'axios'
+import { useSignup } from '..'
 
 const validationSchema = z
     .object({

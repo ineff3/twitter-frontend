@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import useRefreshToken from '../features/authentication/hooks/useRefreshToken'
 import { useApi } from '../utils/api/actions'
-import { useGet } from '../utils/api/queries'
 import { useNavigate } from 'react-router-dom'
-import useAuthentication from '../features/authentication/hooks/useAuthentication'
 import useLogout from '../features/authentication/hooks/useLogout'
+import { useAuthentication } from '../features/authentication'
 
 const Search = () => {
     const navigate = useNavigate()

@@ -1,4 +1,4 @@
-import { useModal } from '../../../hooks/handleView'
+import { useModal } from '../../../hooks/useModal'
 import Modal from '../../../components/ui/Modal'
 import { useNavigate } from 'react-router-dom'
 import SignupForm from './SignupForm'

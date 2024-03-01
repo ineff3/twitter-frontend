@@ -1,12 +1,13 @@
-import axios from 'axios'
-import useAuthentication from './useAuthentication'
+import { useAuthentication } from '..'
+import { apiRoutes } from '../../../routes'
+import axios from '../../../utils/api/axios'
 
 const useLogout = () => {
     const { setAccessToken } = useAuthentication()
     const logout = async () => {
         try {
             setAccessToken('')
-            const response = axios.get('http://localhost:3000/users/logout', {
+            const response = await axios.get(apiRoutes.logout, {
                 withCredentials: true,
             })
         } catch (err) {

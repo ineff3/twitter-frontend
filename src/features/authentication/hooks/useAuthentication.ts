@@ -1,5 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
-import { ACCESS_TOKEN_KEY } from '../../../routes'
+
+const ACCESS_TOKEN_KEY = 'accessToken'
 
 const useAuthentication = () => {
     const queryClient = useQueryClient()

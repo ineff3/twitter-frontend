@@ -2,12 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import Input from '../../../components/form/Input'
-import { useLogin } from '../services/auth-actions'
-import Cookies from 'js-cookie'
-import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '..'
-import { ACCESS_TOKEN_KEY } from '../../../routes'
+import { useAuthentication, useLogin } from '..'
 
 const validationSchema = z.object({
     email: z
@@ -36,9 +32,8 @@ const LoginForm = () => {
         },
     })
     const loginMutation = useLogin()
-    const queryClient = useQueryClient()
     const navigate = useNavigate()
-    const { setAuth } = useAuth()
+    const { setAccessToken } = useAuthentication()
 
     const onSubmit: SubmitHandler<formType> = (data) => {
         loginMutation.mutate(data, {
@@ -48,8 +43,7 @@ const LoginForm = () => {
             onSuccess(data) {
                 console.log(data)
                 navigate('/')
-                queryClient.invalidateQueries()
-                queryClient.setQueryData([ACCESS_TOKEN_KEY], data.accessToken)
+                setAccessToken(data.accessToken)
             },
         })
     }

@@ -14,13 +14,3 @@ export interface IUser extends ISignupData {}
 export interface ILoginResponse {
     accessToken: string
 }
-
-// Auth Context
-export interface DataContextType {
-    auth: AuthData
-    setAuth: (values: AuthData) => void
-}
-
-export interface AuthData {
-    accessToken: string
-}

@@ -1,12 +1,7 @@
 import { useEffect } from 'react'
-import axios from 'axios'
 import useRefreshToken from '../features/authentication/hooks/useRefreshToken'
-import useAuthentication from '../features/authentication/hooks/useAuthentication'
-
-const instance = axios.create({
-    baseURL: 'http://localhost:3000/',
-    withCredentials: true,
-})
+import { useAuthentication } from '../features/authentication'
+import { instance } from '../utils/api/axios'
 
 const useAxiosInstance = () => {
     const refresh = useRefreshToken()
