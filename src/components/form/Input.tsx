@@ -4,14 +4,10 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
     placeholder: string
     isInvalid: boolean
     errorMessage?: string
-    rightLabel?: string
 }
 
 const Input = forwardRef(
-    (
-        { placeholder, rightLabel, isInvalid, errorMessage, ...props }: Props,
-        ref: any
-    ) => {
+    ({ placeholder, isInvalid, errorMessage, ...props }: Props, ref: any) => {
         return (
             <>
                 <label className=" form-control w-full max-w-md">
@@ -27,17 +23,6 @@ const Input = forwardRef(
                             <span className="label-text-alt text-error">
                                 {errorMessage?.toString()}
                             </span>
-                        )}
-                        {rightLabel && (
-                            <>
-                                {!isInvalid && (
-                                    <span className=" label-text-alt" />
-                                )}
-
-                                <span className=" link label-text-alt">
-                                    {rightLabel}
-                                </span>
-                            </>
                         )}
                     </div>
                 </label>

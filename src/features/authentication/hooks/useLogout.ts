@@ -3,10 +3,11 @@ import { apiRoutes } from '../../../routes'
 import axios from '../../../utils/api/axios'
 
 const useLogout = () => {
-    const { setAccessToken } = useAuthentication()
+    const { setAuthData } = useAuthentication()
     const logout = async () => {
         try {
-            setAccessToken('')
+            localStorage.removeItem('persist')
+            setAuthData({})
             const response = await axios.get(apiRoutes.logout, {
                 withCredentials: true,
             })

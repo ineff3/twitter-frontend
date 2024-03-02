@@ -8,14 +8,16 @@ interface IRefreshResponse {
 }
 
 const useRefreshToken = () => {
-    const { setAccessToken } = useAuthentication()
+    const { setAuthData } = useAuthentication()
     const refresh = async () => {
         const response = await axios
             .get<IRefreshResponse>(apiRoutes.refreshToken, {
                 withCredentials: true,
             })
             .then((res) => res.data)
-        setAccessToken(response.accessToken)
+        setAuthData({
+            accessToken: response.accessToken,
+        })
         return response.accessToken
     }
     return refresh

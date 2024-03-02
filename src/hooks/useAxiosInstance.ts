@@ -5,13 +5,14 @@ import { instance } from '../utils/api/axios'
 
 const useAxiosInstance = () => {
     const refresh = useRefreshToken()
-    const { accessToken } = useAuthentication()
+    const { auth } = useAuthentication()
 
     useEffect(() => {
         const requestIntercept = instance.interceptors.request.use(
             (config) => {
                 if (!config.headers['Authorization']) {
-                    config.headers['Authorization'] = `Bearer ${accessToken}`
+                    config.headers['Authorization'] =
+                        `Bearer ${auth?.accessToken}`
                 }
                 return config
             },
@@ -38,7 +39,7 @@ const useAxiosInstance = () => {
             instance.interceptors.request.eject(requestIntercept)
             instance.interceptors.response.eject(responseIntercept)
         }
-    }, [accessToken, refresh])
+    }, [auth, refresh])
 
     return instance
 }

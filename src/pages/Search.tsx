@@ -8,7 +8,7 @@ import { useAuthentication } from '../features/authentication'
 const Search = () => {
     const navigate = useNavigate()
     const refresh = useRefreshToken()
-    const { setAccessToken } = useAuthentication()
+    const { setAuthData } = useAuthentication()
     const logout = useLogout()
     // const { data, status, error } = useGet('users', 'users')
 
@@ -20,7 +20,7 @@ const Search = () => {
                 const response = await get('users')
                 console.log(response)
             } catch (err) {
-                setAccessToken('')
+                setAuthData({})
                 navigate('/auth')
             }
         }

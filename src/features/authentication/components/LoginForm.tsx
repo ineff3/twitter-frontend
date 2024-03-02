@@ -2,8 +2,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import Input from '../../../components/form/Input'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuthentication, useLogin } from '..'
+import { pageRoutes } from '../../../routes'
 
 const validationSchema = z.object({
     email: z
@@ -16,6 +17,7 @@ const validationSchema = z.object({
         .min(1, 'Password is a required field')
         .min(6, 'Password must be at least 6 characters')
         .trim(),
+    persist: z.boolean().optional(),
 })
 type formType = z.infer<typeof validationSchema>
 
@@ -33,17 +35,24 @@ const LoginForm = () => {
     })
     const loginMutation = useLogin()
     const navigate = useNavigate()
-    const { setAccessToken } = useAuthentication()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || pageRoutes.home
+    const { setAuthData } = useAuthentication()
 
     const onSubmit: SubmitHandler<formType> = (data) => {
         loginMutation.mutate(data, {
             onError: (err) => {
                 console.log(err)
             },
-            onSuccess(data) {
-                console.log(data)
-                navigate('/')
-                setAccessToken(data.accessToken)
+            onSuccess(result) {
+                console.log(result)
+                if (data.persist) {
+                    localStorage.setItem('persist', 'persist')
+                }
+                navigate(from, { replace: true })
+                setAuthData({
+                    accessToken: result.accessToken,
+                })
             },
         })
     }
@@ -66,11 +75,22 @@ const LoginForm = () => {
                     errorMessage={errors?.password?.message}
                     placeholder="Password"
                     type="password"
-                    rightLabel="Forgot password?"
                 />
+                <div className=" flex flex-1 items-center justify-between ">
+                    <label className="label cursor-pointer gap-2">
+                        <input
+                            {...register('persist')}
+                            type="checkbox"
+                            defaultChecked
+                            className="checkbox-primary checkbox checkbox-sm"
+                        />
+                        <span className="label-text">Stay signed in</span>
+                    </label>
+                    <p className=" text-sm">Forgot password?</p>
+                </div>
                 <button
                     type="submit"
-                    className="btn btn-primary btn-block mt-5"
+                    className="btn btn-primary btn-block mt-3 "
                 >
                     Connect now
                 </button>

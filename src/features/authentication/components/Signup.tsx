@@ -3,13 +3,14 @@ import Modal from '../../../components/ui/Modal'
 import { useNavigate } from 'react-router-dom'
 import SignupForm from './SignupForm'
 import { useState } from 'react'
+import { pageRoutes } from '../../../routes'
 
 const Signup = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
     const navigate = useNavigate()
     const { show, close, visible } = useModal(true)
     const closeWithPageShift = () => {
-        navigate(-1)
+        navigate(pageRoutes.auth)
         close()
     }
     return (
