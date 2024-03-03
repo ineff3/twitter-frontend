@@ -1,7 +1,9 @@
 import { Link, Outlet } from 'react-router-dom'
 import LoginForm from './LoginForm'
+import { useState } from 'react'
 
 const Login = () => {
+    const [errorMessage, setErrorMessage] = useState<string | null>(null)
     return (
         <div className=" mx-auto flex w-full max-w-screen-lg flex-auto justify-between font-montserrat">
             <div className=" flex w-full max-w-xl flex-col border-r border-accent pb-5 pl-7 pt-10 text-secondary">
@@ -49,7 +51,14 @@ const Login = () => {
                 <p className=" text-3xl font-bold text-secondary">
                     Find out what's trending.
                 </p>
-                <LoginForm />
+                <div>
+                    <LoginForm setErrorMessage={setErrorMessage} />
+                    {errorMessage && (
+                        <p className=" mt-2 text-center text-sm text-error">
+                            {errorMessage}
+                        </p>
+                    )}
+                </div>
             </div>
             <Outlet />
         </div>

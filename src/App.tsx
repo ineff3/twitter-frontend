@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import BaseLayout from './layouts/BaseLayout'
-import { RouteAuth } from './features/authentication/index'
+import { RouteAuth, UserFetch } from './features/authentication/index'
 import {
     Auth,
     Bookmarks,
@@ -23,16 +23,18 @@ const App = () => {
                     </Route>
                 </Route>
                 <Route element={<RouteAuth required />}>
-                    <Route element={<BaseLayout />}>
-                        <Route path={pageRoutes.home} element={<Home />} />
-                        <Route path="/search" element={<Search />} />
-                        <Route
-                            path="/notifications"
-                            element={<Notifications />}
-                        />
-                        <Route path="/messages" element={<Messages />} />
-                        <Route path="/bookmarks" element={<Bookmarks />} />
-                        <Route path="/premium" element={<Premium />} />
+                    <Route element={<UserFetch />}>
+                        <Route element={<BaseLayout />}>
+                            <Route path={pageRoutes.home} element={<Home />} />
+                            <Route path="/search" element={<Search />} />
+                            <Route
+                                path="/notifications"
+                                element={<Notifications />}
+                            />
+                            <Route path="/messages" element={<Messages />} />
+                            <Route path="/bookmarks" element={<Bookmarks />} />
+                            <Route path="/premium" element={<Premium />} />
+                        </Route>
                     </Route>
                 </Route>
             </Routes>

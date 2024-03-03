@@ -55,9 +55,11 @@ const SignupForm = ({ setErrorMessage }: Props) => {
             onError: (err) => {
                 console.log(err)
                 if (err instanceof AxiosError) {
-                    setErrorMessage(err.response?.data?.message)
+                    if (err.response?.status === 409) {
+                        setErrorMessage('User with such email already exists')
+                    }
                 } else {
-                    setErrorMessage(err.message)
+                    setErrorMessage('Something went wrong. Please try again!')
                 }
             },
             onSuccess: () => {

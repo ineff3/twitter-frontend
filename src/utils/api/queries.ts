@@ -1,14 +1,24 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+    QueryKey,
+    QueryOptions,
+    UseQueryOptions,
+    useMutation,
+    useQuery,
+    useQueryClient,
+} from '@tanstack/react-query'
 import { useApi } from './actions'
-import { useNavigate } from 'react-router-dom'
 
-export const useGet = <T>(path: string, url?: string, params?: object) => {
+export const useFetch = <T>(
+    url: string,
+    params?: object | null,
+    config?: Partial<UseQueryOptions<T, Error, T, QueryKey>>
+) => {
     const { get } = useApi()
-    const navigate = useNavigate()
     const qKey = params ? [url, params] : [url]
     return useQuery({
         queryKey: qKey,
-        queryFn: () => get<T>(path),
+        queryFn: () => get<T>(url),
+        ...config,
     })
 }
 

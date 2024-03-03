@@ -9,7 +9,13 @@ export interface ILoginData {
     email: string
     password: string
 }
-export interface IUser extends ISignupData {}
+export interface IUser {
+    _id: string
+    firstName: string
+    secondName: string
+    email: string
+    password: string
+}
 
 export interface ILoginResponse {
     accessToken: string

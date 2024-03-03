@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
-import useRefreshToken from '../features/authentication/hooks/useRefreshToken'
-import { useAuthentication } from '../features/authentication'
+import { useAuthentication, useRefreshToken } from '../features/authentication'
 import { instance } from '../utils/api/axios'
 
 const useAxiosInstance = () => {

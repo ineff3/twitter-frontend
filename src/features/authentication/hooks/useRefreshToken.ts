@@ -1,6 +1,5 @@
 import { useAuthentication } from '..'
 import { apiRoutes } from '../../../routes'
-
 import axios from '../../../utils/api/axios'
 
 interface IRefreshResponse {
@@ -10,15 +9,19 @@ interface IRefreshResponse {
 const useRefreshToken = () => {
     const { setAuthData } = useAuthentication()
     const refresh = async () => {
-        const response = await axios
-            .get<IRefreshResponse>(apiRoutes.refreshToken, {
-                withCredentials: true,
+        try {
+            const response = await axios
+                .get<IRefreshResponse>(apiRoutes.refreshToken, {
+                    withCredentials: true,
+                })
+                .then((res) => res.data)
+            setAuthData({
+                accessToken: response.accessToken,
             })
-            .then((res) => res.data)
-        setAuthData({
-            accessToken: response.accessToken,
-        })
-        return response.accessToken
+            return response.accessToken
+        } catch (err) {
+            console.error(err)
+        }
     }
     return refresh
 }

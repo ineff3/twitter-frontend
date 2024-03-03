@@ -5,6 +5,7 @@ import Input from '../../../components/form/Input'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuthentication, useLogin } from '..'
 import { pageRoutes } from '../../../routes'
+import { AxiosError } from 'axios'
 
 const validationSchema = z.object({
     email: z
@@ -21,7 +22,11 @@ const validationSchema = z.object({
 })
 type formType = z.infer<typeof validationSchema>
 
-const LoginForm = () => {
+interface Props {
+    setErrorMessage: (value: string) => void
+}
+
+const LoginForm = ({ setErrorMessage }: Props) => {
     const {
         register,
         handleSubmit,
@@ -43,6 +48,15 @@ const LoginForm = () => {
         loginMutation.mutate(data, {
             onError: (err) => {
                 console.log(err)
+                if (err instanceof AxiosError) {
+                    if (err.response?.status === 401) {
+                        setErrorMessage(
+                            'Wrong credentials: invalid email or password'
+                        )
+                    }
+                } else {
+                    setErrorMessage('Something went wrong. Please try again!')
+                }
             },
             onSuccess(result) {
                 console.log(result)
@@ -90,8 +104,11 @@ const LoginForm = () => {
                 </div>
                 <button
                     type="submit"
-                    className="btn btn-primary btn-block mt-3 "
+                    className={` ${loginMutation.isPending ? 'btn-disabled' : ''} btn btn-primary btn-block mt-3 `}
                 >
+                    {loginMutation.isPending && (
+                        <span className="loading loading-spinner"></span>
+                    )}
                     Connect now
                 </button>
             </form>

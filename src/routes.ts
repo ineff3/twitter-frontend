@@ -3,6 +3,7 @@ export const apiRoutes = {
     login: 'users/login',
     logout: 'users/logout',
     signUp: 'users/signup',
+    getAuthorizedUser: 'users/getAuthorizedUser',
 }
 
 export const pageRoutes = {
