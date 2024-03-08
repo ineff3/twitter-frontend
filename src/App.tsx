@@ -1,6 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
 import BaseLayout from './layouts/BaseLayout'
-import { RouteAuth, UserFetch } from './features/authentication/index'
+import {
+    FlowController,
+    RouteAuth,
+    UserFetch,
+} from './features/authentication/index'
 import {
     Auth,
     Bookmarks,
@@ -25,6 +29,10 @@ const App = () => {
                 <Route element={<RouteAuth required />}>
                     <Route element={<UserFetch />}>
                         <Route element={<BaseLayout />}>
+                            <Route
+                                path={pageRoutes.signupFlow}
+                                element={<FlowController />}
+                            />
                             <Route path={pageRoutes.home} element={<Home />} />
                             <Route path="/search" element={<Search />} />
                             <Route

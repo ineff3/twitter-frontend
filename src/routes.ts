@@ -4,9 +4,14 @@ export const apiRoutes = {
     logout: 'users/logout',
     signUp: 'users/signup',
     getAuthorizedUser: 'users/getAuthorizedUser',
+    getUsernamesArray: 'users/getPossibleUsernames',
+    checkUsername: 'users/checkUsernameIsReserved',
+    updateUsername: 'users/updateUsername',
 }
 
 export const pageRoutes = {
     home: '/',
     auth: '/auth',
+    authSignup: '/auth/signup',
+    signupFlow: '/signup-flow',
 }

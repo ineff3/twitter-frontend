@@ -8,21 +8,23 @@ import { forwardRef } from 'react'
 import { useLogout } from '../../features/authentication'
 import { useNavigate } from 'react-router-dom'
 import { apiRoutes, pageRoutes } from '../../routes'
-import { useQueryClient } from '@tanstack/react-query'
 import { IUser } from '../../features/authentication/interfaces'
+import { useFetch } from '../../utils/api/queries'
 
 const UserPreview = () => {
-    const queryClient = useQueryClient()
-    const user: IUser | undefined = queryClient.getQueryData([
-        apiRoutes.getAuthorizedUser,
-    ])
+    const user = useFetch<IUser>(apiRoutes.getAuthorizedUser, null, {
+        staleTime: Infinity,
+        gcTime: Infinity,
+    })
     return (
         <div className=" flex items-center gap-2">
             <FaUserCircle size={37} />
             <div className=" flex w-full items-center justify-between">
                 <div className=" flex flex-col">
-                    <p className=" text-sm text-secondary">{user?.firstName}</p>
-                    <p className=" text-[12px]">@username</p>
+                    <p className=" text-sm text-secondary">
+                        {user?.data?.firstName}
+                    </p>
+                    <p className=" text-[12px]">{user?.data?.username}</p>
                 </div>
                 <MenuDropdown
                     btnContent={

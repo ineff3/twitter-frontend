@@ -4,7 +4,9 @@ import { z } from 'zod'
 import Input from '../../../components/form/Input'
 import { requiredStringFieldSchema } from '../../../utils/schemeTransformations'
 import { AxiosError } from 'axios'
-import { useSignup } from '..'
+import { useAuthentication, useLogin, useSignup } from '..'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { pageRoutes } from '../../../routes'
 
 const validationSchema = z
     .object({
@@ -49,6 +51,10 @@ const SignupForm = ({ setErrorMessage }: Props) => {
     })
 
     const signupMutation = useSignup()
+    const loginMutation = useLogin()
+    const { setAuthData } = useAuthentication()
+    const navigate = useNavigate()
+    const location = useLocation()
 
     const onSubmit: SubmitHandler<formType> = (data) => {
         signupMutation.mutate(data, {
@@ -64,6 +70,24 @@ const SignupForm = ({ setErrorMessage }: Props) => {
             },
             onSuccess: () => {
                 console.log('Successfully signuped')
+                loginMutation.mutate(
+                    { email: data.email, password: data.password },
+                    {
+                        onError(err) {
+                            console.error(err)
+                        },
+                        onSuccess(result) {
+                            localStorage.setItem('persist', 'persist')
+                            setAuthData({
+                                accessToken: result.accessToken,
+                            })
+                            navigate(pageRoutes.signupFlow, {
+                                state: { from: location },
+                                replace: true,
+                            })
+                        },
+                    }
+                )
             },
         })
     }

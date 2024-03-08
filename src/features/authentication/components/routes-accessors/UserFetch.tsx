@@ -1,20 +1,29 @@
-import { useFetch } from '../../../../utils/api/queries'
-import { IUser } from '../../interfaces'
-import { apiRoutes } from '../../../../routes'
 import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
+import usePrefetchUserData from '../../hooks/usePrefetchUserData'
 
 const UserFetch = () => {
     const [isLoading, setIsLoading] = useState(true)
-    const user = useFetch<IUser>(apiRoutes.getAuthorizedUser, null, {
-        staleTime: Infinity,
-        gcTime: Infinity,
-    })
+    const queryClient = useQueryClient()
+
+    const prefetchUserData = usePrefetchUserData()
+
     useEffect(() => {
-        if (!user.isPending) {
-            setIsLoading(false)
+        const prefetchUser = async () => {
+            try {
+                await prefetchUserData()
+            } catch (err) {
+                console.error(err)
+            } finally {
+                setIsLoading(false)
+            }
         }
-    }, [user.isPending])
+        prefetchUser()
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     return (
         <>
             {isLoading ? (

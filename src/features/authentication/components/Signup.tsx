@@ -8,7 +8,6 @@ import ErrorAlert from '../../../components/ui/ErrorAlert'
 
 const Signup = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
-    console.log(errorMessage)
     const navigate = useNavigate()
     const { show, close, visible } = useModal(true)
     const closeWithPageShift = () => {

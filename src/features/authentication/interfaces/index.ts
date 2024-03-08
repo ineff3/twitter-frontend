@@ -15,6 +15,7 @@ export interface IUser {
     secondName: string
     email: string
     password: string
+    username: string
 }
 
 export interface ILoginResponse {

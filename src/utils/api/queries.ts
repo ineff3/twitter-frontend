@@ -25,7 +25,7 @@ export const useFetch = <T>(
 export const useOptimisticMutation = <T, S, R>(
     func: (data: S) => Promise<R>,
     url?: string,
-    params?: object,
+    params?: object | null,
     updater?: (oldData: T, newData: S) => T
 ) => {
     const queryClient = useQueryClient()
@@ -70,7 +70,7 @@ export const useOptimisticMutation = <T, S, R>(
 export const usePost = <T, S, R>(
     path: string,
     url?: string,
-    params?: object,
+    params?: object | null,
     updater?: (oldData: T, newData: S) => T
 ) => {
     const { post } = useApi()
@@ -84,8 +84,8 @@ export const usePost = <T, S, R>(
 
 export const useUpdate = <T, S>(
     path: string,
-    url: string,
-    params?: object,
+    url?: string,
+    params?: object | null,
     updater?: (oldData: T, updatedData: S) => T
 ) => {
     const { patch } = useApi()
