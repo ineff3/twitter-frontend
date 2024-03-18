@@ -16,6 +16,7 @@ export interface IUser {
     email: string
     password: string
     username: string
+    userImage: string
 }
 
 export interface ILoginResponse {

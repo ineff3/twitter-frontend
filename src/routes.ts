@@ -7,6 +7,7 @@ export const apiRoutes = {
     getUsernamesArray: 'users/getPossibleUsernames',
     checkUsername: 'users/checkUsernameIsReserved',
     updateUsername: 'users/updateUsername',
+    updateUserImage: 'users/updateUserImage',
 }
 
 export const pageRoutes = {

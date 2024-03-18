@@ -16,15 +16,32 @@ const UserPreview = () => {
         staleTime: Infinity,
         gcTime: Infinity,
     })
+    let imgURL = undefined
+    if (user?.data?.userImage) {
+        imgURL = new URL(user?.data?.userImage, import.meta.env.VITE_BASE_URL)
+    }
+
     return (
         <div className=" flex items-center gap-2">
-            <FaUserCircle size={37} />
+            {imgURL ? (
+                <div className=" h-[37px] w-[37px] flex-shrink-0 overflow-hidden rounded-full">
+                    <img
+                        src={String(imgURL)}
+                        alt="Profile image"
+                        className="h-full w-full object-cover"
+                    />
+                </div>
+            ) : (
+                <>
+                    <FaUserCircle size={37} />
+                </>
+            )}
             <div className=" flex w-full items-center justify-between">
                 <div className=" flex flex-col">
                     <p className=" text-sm text-secondary">
                         {user?.data?.firstName}
                     </p>
-                    <p className=" text-[12px]">{user?.data?.username}</p>
+                    <p className=" text-[12px]">@{user?.data?.username}</p>
                 </div>
                 <MenuDropdown
                     btnContent={

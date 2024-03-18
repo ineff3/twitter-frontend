@@ -7,6 +7,7 @@ import {
     useQueryClient,
 } from '@tanstack/react-query'
 import { useApi } from './actions'
+import { AxiosRequestConfig } from 'axios'
 
 export const useFetch = <T>(
     url: string,
@@ -85,12 +86,18 @@ export const usePost = <T, S, R>(
 export const useUpdate = <T, S>(
     path: string,
     url?: string,
-    params?: object | null,
-    updater?: (oldData: T, updatedData: S) => T
+    params?: object,
+    updater?: (oldData: T, updatedData: S) => T,
+    axiosOptions?: AxiosRequestConfig
 ) => {
     const { patch } = useApi()
     return useOptimisticMutation(
-        (data) => patch(path, data),
+        (data) => {
+            if (axiosOptions) {
+                return patch(path, data, axiosOptions)
+            }
+            return patch(path, data)
+        },
         url,
         params,
         updater
