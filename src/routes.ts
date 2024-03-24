@@ -8,11 +8,15 @@ export const apiRoutes = {
     checkUsername: 'users/checkUsernameIsReserved',
     updateUsername: 'users/updateUsername',
     updateUserImage: 'users/updateUserImage',
+    fetchUserProfile: (username: string) => {
+        return `users/${username}`
+    },
 }
 
 export const pageRoutes = {
     home: '/',
     auth: '/auth',
+    profile: '/:username',
     authSignup: '/auth/signup',
     signupFlow: '/signup-flow',
 }

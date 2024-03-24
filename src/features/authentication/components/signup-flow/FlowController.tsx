@@ -30,7 +30,7 @@ const FlowController = () => {
         // </>
 
         <>
-            <Modal isOpen={visible} close={modalClose}>
+            <Modal isOpen={visible} close={modalClose} staticMode>
                 <div className=" flex min-h-[430px] flex-col ">
                     <div className=" mb-7 self-center ">
                         <svg

@@ -25,6 +25,7 @@ const FileInput = ({ onChange, value }: Props) => {
                             className={`overflow-hidden rounded-full ${isDragActive && ' border-2 border-dashed duration-100 ease-in-out '} max-h-[140px] max-w-[140px]  `}
                             {...getRootProps()}
                         >
+                            <input {...getInputProps()} />
                             {!value ? (
                                 <FaUserCircle size={130} />
                             ) : (
@@ -44,9 +45,11 @@ const FileInput = ({ onChange, value }: Props) => {
                         </div>
                         <button
                             className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent bg-opacity-50 p-1 duration-200 hover:bg-opacity-90 "
-                            onClick={open}
+                            onClick={(event) => {
+                                event.stopPropagation()
+                                open()
+                            }}
                         >
-                            <input {...getInputProps()} />
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="35px"

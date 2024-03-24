@@ -10,7 +10,7 @@ const useUpdateUsername = () => {
     return useUpdate<IUser, IUpdatedUsername>(
         apiRoutes.updateUsername,
         apiRoutes.getAuthorizedUser,
-        null,
+        undefined,
         (oldData, newData) => ({
             ...oldData,
             ...newData,

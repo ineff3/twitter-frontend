@@ -5,12 +5,19 @@ interface Props {
     isOpen: boolean
     close: () => void
     children?: ReactNode
+    staticMode?: boolean
 }
 
-const Modal = ({ isOpen, close, children }: Props) => {
+const Modal = ({ isOpen, close, children, staticMode = false }: Props) => {
     return (
         <Transition appear show={isOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={close}>
+            <Dialog
+                as="div"
+                className="relative z-10"
+                onClose={() => {
+                    return staticMode ? {} : close()
+                }}
+            >
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"

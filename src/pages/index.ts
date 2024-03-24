@@ -6,6 +6,7 @@ import Bookmarks from './Bookmarks'
 import Premium from './Premium'
 import Auth from './Auth'
 import SignupPage from './Signup'
+import Profile from './Profile'
 
 export {
     Home,
@@ -16,4 +17,5 @@ export {
     Premium,
     Auth,
     SignupPage,
+    Profile,
 }

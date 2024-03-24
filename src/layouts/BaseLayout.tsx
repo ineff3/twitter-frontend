@@ -4,7 +4,7 @@ import NewsSidebar from './components/NewsSidebar'
 
 const BaseLayout = () => {
     return (
-        <div className="flex justify-between">
+        <div className="mx-auto flex w-full max-w-[1450px] flex-1 justify-between">
             <div className=" w-full max-w-[220px]">
                 <NavSidebar />
             </div>

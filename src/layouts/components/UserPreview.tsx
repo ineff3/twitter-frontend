@@ -6,10 +6,11 @@ import { IoSettingsOutline } from 'react-icons/io5'
 import { PiSignOut } from 'react-icons/pi'
 import { forwardRef } from 'react'
 import { useLogout } from '../../features/authentication'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { apiRoutes, pageRoutes } from '../../routes'
 import { IUser } from '../../features/authentication/interfaces'
 import { useFetch } from '../../utils/api/queries'
+import { useQueryClient } from '@tanstack/react-query'
 
 const UserPreview = () => {
     const user = useFetch<IUser>(apiRoutes.getAuthorizedUser, null, {
@@ -24,13 +25,16 @@ const UserPreview = () => {
     return (
         <div className=" flex items-center gap-2">
             {imgURL ? (
-                <div className=" h-[37px] w-[37px] flex-shrink-0 overflow-hidden rounded-full">
+                <Link
+                    to={import.meta.env.BASE_URL + user?.data?.username}
+                    className=" h-[37px] w-[37px] flex-shrink-0 overflow-hidden rounded-full"
+                >
                     <img
                         src={String(imgURL)}
                         alt="Profile image"
                         className="h-full w-full object-cover"
                     />
-                </div>
+                </Link>
             ) : (
                 <>
                     <FaUserCircle size={37} />
@@ -62,6 +66,10 @@ export default UserPreview
 const MenuDropdownContent = forwardRef((_, ref: any) => {
     const logout = useLogout()
     const navigate = useNavigate()
+    const queryClient = useQueryClient()
+    const user: IUser | undefined = queryClient.getQueryData([
+        apiRoutes.getAuthorizedUser,
+    ])
     const signOut = async () => {
         await logout()
         navigate(pageRoutes.auth)
@@ -73,14 +81,15 @@ const MenuDropdownContent = forwardRef((_, ref: any) => {
         >
             <Menu.Item>
                 {({ active }) => (
-                    <button
+                    <Link
+                        to={import.meta.env.BASE_URL + user?.username}
                         className={`${
                             active ? 'bg-neutral text-neutral-content' : ''
                         } flex items-center gap-4 px-4 py-2`}
                     >
                         <IoSettingsOutline size={17} />
                         <p>Manage Account</p>
-                    </button>
+                    </Link>
                 )}
             </Menu.Item>
             <Menu.Item>

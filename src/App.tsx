@@ -12,6 +12,7 @@ import {
     Messages,
     Notifications,
     Premium,
+    Profile,
     Search,
     SignupPage,
 } from './pages'
@@ -34,6 +35,10 @@ const App = () => {
                                 element={<FlowController />}
                             />
                             <Route path={pageRoutes.home} element={<Home />} />
+                            <Route
+                                path={pageRoutes.profile}
+                                element={<Profile />}
+                            />
                             <Route path="/search" element={<Search />} />
                             <Route
                                 path="/notifications"
