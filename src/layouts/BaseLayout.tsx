@@ -11,7 +11,7 @@ const BaseLayout = () => {
             <div className=" w-full max-w-screen-lg ">
                 <Outlet />
             </div>
-            <div className=" w-full  max-w-[230px]">
+            <div className=" w-full  max-w-[270px]">
                 <NewsSidebar />
             </div>
         </div>

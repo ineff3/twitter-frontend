@@ -11,6 +11,7 @@ import { apiRoutes, pageRoutes } from '../../routes'
 import { IUser } from '../../features/authentication/interfaces'
 import { useFetch } from '../../utils/api/queries'
 import { useQueryClient } from '@tanstack/react-query'
+import UserIconLink from '../../components/ui/UserIconLink'
 
 const UserPreview = () => {
     const user = useFetch<IUser>(apiRoutes.getAuthorizedUser, null, {
@@ -25,16 +26,10 @@ const UserPreview = () => {
     return (
         <div className=" flex items-center gap-2">
             {imgURL ? (
-                <Link
-                    to={import.meta.env.BASE_URL + user?.data?.username}
-                    className=" h-[37px] w-[37px] flex-shrink-0 overflow-hidden rounded-full"
-                >
-                    <img
-                        src={String(imgURL)}
-                        alt="Profile image"
-                        className="h-full w-full object-cover"
-                    />
-                </Link>
+                <UserIconLink
+                    username={user?.data?.username}
+                    userImage={user?.data?.userImage}
+                />
             ) : (
                 <>
                     <FaUserCircle size={37} />

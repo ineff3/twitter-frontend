@@ -72,11 +72,17 @@ export const usePost = <T, S, R>(
     path: string,
     url?: string,
     params?: object | null,
-    updater?: (oldData: T, newData: S) => T
+    updater?: (oldData: T, newData: S) => T,
+    axiosOptions?: AxiosRequestConfig
 ) => {
     const { post } = useApi()
     return useOptimisticMutation(
-        (data) => post<R>(path, data),
+        (data) => {
+            if (axiosOptions) {
+                return post<R>(path, data, axiosOptions)
+            }
+            return post<R>(path, data)
+        },
         url,
         params,
         updater

@@ -7,8 +7,8 @@ export const useApi = () => {
         get: <T>(url: string) =>
             axiosInstance.get<T>(url).then((res) => res.data),
 
-        post: <T>(url: string, data: any) =>
-            axiosInstance.post<T>(url, data).then((res) => res.data),
+        post: <T>(url: string, data: any, options?: AxiosRequestConfig) =>
+            axiosInstance.post<T>(url, data, options).then((res) => res.data),
 
         patch: <T>(url: string, data: any, options?: AxiosRequestConfig) =>
             axiosInstance.patch<T>(url, data, options).then((res) => res.data),
