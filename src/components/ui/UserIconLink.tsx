@@ -7,12 +7,12 @@ interface Props {
 }
 
 const UserIconLink = ({ username, userImage }: Props) => {
-    const imgURL = new URL(userImage || '', import.meta.env.VITE_BASE_URL)
+    const imgURL = new URL(userImage || '', import.meta.env.VITE_API_BASE_URL)
     return (
         <>
             {userImage ? (
                 <Link
-                    to={import.meta.env.BASE_URL + username}
+                    to={import.meta.env.VITE_API_BASE_URL + username}
                     className=" h-[37px] w-[37px] flex-shrink-0 overflow-hidden rounded-full"
                 >
                     <img

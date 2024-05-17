@@ -23,7 +23,10 @@ const ProfilePage = () => {
 
     const userData = data.userData
 
-    const imgURL = new URL(userData?.userImage, import.meta.env.VITE_BASE_URL)
+    const imgURL = new URL(
+        userData?.userImage,
+        import.meta.env.VITE_API_BASE_URL
+    )
 
     return (
         <div className=" flex h-full flex-col">

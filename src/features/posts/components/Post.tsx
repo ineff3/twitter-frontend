@@ -49,7 +49,7 @@ const Post = ({ post }: Props) => {
                                             src={String(
                                                 new URL(
                                                     path || '',
-                                                    import.meta.env.VITE_BASE_URL
+                                                    import.meta.env.VITE_API_BASE_URL
                                                 )
                                             )}
                                             alt="Post Image"

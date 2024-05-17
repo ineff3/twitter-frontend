@@ -20,7 +20,10 @@ const UserPreview = () => {
     })
     let imgURL = undefined
     if (user?.data?.userImage) {
-        imgURL = new URL(user?.data?.userImage, import.meta.env.VITE_BASE_URL)
+        imgURL = new URL(
+            user?.data?.userImage,
+            import.meta.env.VITE_API_BASE_URL
+        )
     }
 
     return (
@@ -77,7 +80,7 @@ const MenuDropdownContent = forwardRef((_, ref: any) => {
             <Menu.Item>
                 {({ active }) => (
                     <Link
-                        to={import.meta.env.BASE_URL + user?.username}
+                        to={import.meta.env.VITE_API_BASE_URL + user?.username}
                         className={`${
                             active ? 'bg-neutral text-neutral-content' : ''
                         } flex items-center gap-4 px-4 py-2`}
