@@ -80,7 +80,7 @@ const MenuDropdownContent = forwardRef((_, ref: any) => {
             <Menu.Item>
                 {({ active }) => (
                     <Link
-                        to={import.meta.env.VITE_API_BASE_URL + user?.username}
+                        to={user?.username || ''}
                         className={`${
                             active ? 'bg-neutral text-neutral-content' : ''
                         } flex items-center gap-4 px-4 py-2`}

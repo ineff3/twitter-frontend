@@ -1,4 +1,3 @@
-import React from 'react'
 import useGetPosts from '../hooks/useGetPosts'
 import Post from './Post'
 
@@ -15,8 +14,7 @@ const PostsFlow = () => {
 
     return (
         <div className=" flex flex-col">
-            {data &&
-                data.map((post, index) => <Post key={index} post={post} />)}
+            {data && data.map((post) => <Post key={post._id} post={post} />)}
         </div>
     )
 }

@@ -1,7 +1,7 @@
-import React from 'react'
+import { BookmarkedPostsFlow } from '../features/posts'
 
 const Bookmarks = () => {
-    return <div>Bookmarks</div>
+    return <BookmarkedPostsFlow />
 }
 
 export default Bookmarks

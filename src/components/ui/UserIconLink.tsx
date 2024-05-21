@@ -12,7 +12,7 @@ const UserIconLink = ({ username, userImage }: Props) => {
         <>
             {userImage ? (
                 <Link
-                    to={import.meta.env.VITE_API_BASE_URL + username}
+                    to={username || ''}
                     className=" h-[37px] w-[37px] flex-shrink-0 overflow-hidden rounded-full"
                 >
                     <img

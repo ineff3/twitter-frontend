@@ -9,8 +9,11 @@ interface IPostAuthor {
 }
 
 export interface IPost {
+    _id: string
     author: IPostAuthor
-    liked: string[]
+    likedBy: number
+    isLiked: boolean
+    isBookmarked: boolean
     dateCreated: string
     text?: string
     postImages: string[]

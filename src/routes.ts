@@ -16,6 +16,9 @@ export const apiRoutes = {
     //posts
     getAllPosts: 'posts/getPosts',
     createPost: 'posts/createPost',
+    likePost: 'posts/likePost',
+    bookmarkPost: 'posts/bookmarkPost',
+    getBookmarkedPosts: 'posts/getBookmarkedPosts',
 }
 
 export const pageRoutes = {

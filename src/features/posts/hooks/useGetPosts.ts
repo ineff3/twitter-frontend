@@ -4,7 +4,7 @@ import { IPost } from '../interfaces'
 
 const useGetPosts = () => {
     return useFetch<IPost[]>(apiRoutes.getAllPosts, null, {
-        staleTime: Infinity,
+        // staleTime: Infinity,
     })
 }
 

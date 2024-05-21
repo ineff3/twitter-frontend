@@ -6,9 +6,16 @@ interface Props {
     close: () => void
     children?: ReactNode
     staticMode?: boolean
+    asWindow?: boolean
 }
 
-const Modal = ({ isOpen, close, children, staticMode = false }: Props) => {
+const Modal = ({
+    isOpen,
+    close,
+    children,
+    staticMode = false,
+    asWindow = true,
+}: Props) => {
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog
@@ -31,7 +38,9 @@ const Modal = ({ isOpen, close, children, staticMode = false }: Props) => {
                 </Transition.Child>
 
                 <div className="fixed inset-0 overflow-y-auto">
-                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                    <div
+                        className={`flex min-h-full items-center justify-center text-center ${asWindow && 'p-4'}`}
+                    >
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
@@ -42,7 +51,9 @@ const Modal = ({ isOpen, close, children, staticMode = false }: Props) => {
                             leaveTo="opacity-0 scale-95"
                         >
                             {/* overflow-hidden overflow-y-auto */}
-                            <Dialog.Panel className=" max-h-[550px] w-full max-w-md transform   rounded-2xl bg-base-300 p-6 text-left align-middle shadow-xl transition-all">
+                            <Dialog.Panel
+                                className={` max-h-[550px]  transform   rounded-2xl bg-base-300 text-left align-middle shadow-xl transition-all ${asWindow ? 'w-full max-w-md p-6' : 'w-fit'}`}
+                            >
                                 {children}
                             </Dialog.Panel>
                         </Transition.Child>

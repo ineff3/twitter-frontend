@@ -8,10 +8,11 @@ const useLogout = () => {
     const queryClient = useQueryClient()
     const logout = async () => {
         try {
-            queryClient.removeQueries({
-                queryKey: [apiRoutes.getAuthorizedUser],
-                exact: true,
-            })
+            // queryClient.removeQueries({
+            //     queryKey: [apiRoutes.getAuthorizedUser],
+            //     exact: true,
+            // })
+            queryClient.invalidateQueries()
             localStorage.removeItem('persist')
             setAuthData({})
             const response = await axios.get(apiRoutes.logout, {

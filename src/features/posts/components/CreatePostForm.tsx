@@ -64,8 +64,10 @@ const CreatePostForm = ({ close }: IProps) => {
     const {
         handleSubmit,
         register,
-        formState: { errors, isDirty },
+        formState: { errors, isDirty, defaultValues },
         control,
+        setValue,
+        watch,
     } = useForm<CreatePostFormType>({
         mode: 'all',
         defaultValues: {
@@ -74,6 +76,7 @@ const CreatePostForm = ({ close }: IProps) => {
         },
         resolver: zodResolver(validationSchema),
     })
+    const textArea = watch('text')
     const { fields, append, remove } = useFieldArray({
         control,
         name: 'postImages',
@@ -81,7 +84,6 @@ const CreatePostForm = ({ close }: IProps) => {
     const createPostMutation = useCreatePost()
 
     const onSubmit: SubmitHandler<CreatePostFormType> = (data) => {
-        console.log(data)
         const formData = new FormData()
         data.postImages.forEach(({ file }) => {
             formData.append('postImages', file)
@@ -98,6 +100,11 @@ const CreatePostForm = ({ close }: IProps) => {
                 close()
             },
         })
+    }
+    const appendEmoji = (emoji: any) => {
+        const currentValue = textArea
+        const newValue = `${currentValue}${emoji?.native}`
+        setValue('text', newValue)
     }
 
     return (
@@ -156,7 +163,7 @@ const CreatePostForm = ({ close }: IProps) => {
                             append={append}
                             imageTypes={ACCEPTED_IMAGE_TYPES}
                         />
-                        <AttachEmoji />
+                        <AttachEmoji appendEmoji={appendEmoji} />
                         <button
                             type="button"
                             className=" btn btn-circle btn-ghost btn-sm"
