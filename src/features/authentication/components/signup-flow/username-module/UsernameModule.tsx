@@ -3,17 +3,18 @@ import GeneratedUsernames from './GeneratedUsernames'
 import UsernameInput from './UsernameInput'
 import useUpdateUsername from '../../../hooks/useUpdateUsername'
 import { useQueryClient } from '@tanstack/react-query'
-import { apiRoutes } from '../../../../../routes'
-import { IUser } from '../../../interfaces'
+import { IUserPreview } from '../../../interfaces'
+import useQueryKeyStore from '../../../../../utils/api/useQueryKeyStore'
 
 interface Props {
     next: () => void
 }
 const UsernameModule = ({ next }: Props) => {
     const queryClient = useQueryClient()
-    const initialUsername = queryClient.getQueryData<IUser>([
-        apiRoutes.getAuthorizedUser,
-    ])?.username
+    const queryKeyStore = useQueryKeyStore()
+    const initialUsername = queryClient.getQueryData<IUserPreview>(
+        queryKeyStore.users.currentUserPreview.queryKey
+    )?.username
     const [username, setUsername] = useState(initialUsername || 'username123')
     const [isReserved, setIsReserved] = useState(false)
     const [isValid, setIsValid] = useState(true)
@@ -23,7 +24,10 @@ const UsernameModule = ({ next }: Props) => {
 
     const onSubmit = () => {
         if (username !== initialUsername) {
-            updateUsernameMutation.mutate({ username: username.trim() })
+            updateUsernameMutation.mutate({
+                newValue: username.trim(),
+                updateType: 'username',
+            })
         }
         next()
     }

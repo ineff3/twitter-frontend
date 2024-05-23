@@ -9,8 +9,7 @@ interface IPostCreateData {
 
 const useCreatePost = () => {
     return usePost<IPostCreateData[], FormData, IPost>(
-        apiRoutes.createPost,
-        undefined,
+        apiRoutes.posts,
         null,
         undefined,
         {

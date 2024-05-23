@@ -1,14 +1,13 @@
 import { apiRoutes } from '../../../routes'
 import { useUpdate } from '../../../utils/api/queries'
-import { IUser } from '../interfaces'
-
-type IUpdateUserImage = FormData
+import useQueryKeyStore from '../../../utils/api/useQueryKeyStore'
+import { IUserPreview } from '../interfaces'
 
 const useUpdateUserImage = () => {
-    return useUpdate<IUser, FormData>(
-        apiRoutes.updateUserImage,
-        apiRoutes.getAuthorizedUser,
-        undefined,
+    const queryKeyStore = useQueryKeyStore()
+    return useUpdate<IUserPreview, FormData>(
+        apiRoutes.users,
+        queryKeyStore.users.currentUserPreview.queryKey,
         (oldData, updatedData) => ({
             ...oldData,
             ...updatedData,

@@ -1,40 +1,17 @@
-import {
-    QueryKey,
-    QueryOptions,
-    UseQueryOptions,
-    useMutation,
-    useQuery,
-    useQueryClient,
-} from '@tanstack/react-query'
+import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useApi } from './actions'
 import { AxiosRequestConfig } from 'axios'
 
-export const useFetch = <T>(
-    url: string,
-    params?: object | null,
-    config?: Partial<UseQueryOptions<T, Error, T, QueryKey>>
-) => {
-    const { get } = useApi()
-    const qKey = params ? [url, params] : [url]
-    return useQuery({
-        queryKey: qKey,
-        queryFn: () => get<T>(url),
-        ...config,
-    })
-}
-
 export const useOptimisticMutation = <T, S, R>(
     func: (data: S) => Promise<R>,
-    url?: string,
-    params?: object | null,
+    qKey?: QueryKey | null,
     updater?: (oldData: T, newData: S) => T
 ) => {
     const queryClient = useQueryClient()
-    const qKey = params ? [url, params] : [url]
     return useMutation({
         mutationFn: func,
         onMutate: async (data) => {
-            if (url) {
+            if (qKey) {
                 // Cancel any outgoing refetches
                 // (so they don't overwrite our optimistic update)
                 await queryClient.cancelQueries({ queryKey: qKey })
@@ -55,23 +32,24 @@ export const useOptimisticMutation = <T, S, R>(
         // use the context returned from onMutate to roll back
         onError(error, _, context) {
             console.log(error)
-            if (url) {
+            if (qKey) {
                 queryClient.setQueryData(qKey, context?.previousData)
             }
         },
         // Always refetch after error or success:
         onSettled: () => {
-            queryClient.invalidateQueries({
-                queryKey: qKey,
-            })
+            if (qKey) {
+                queryClient.invalidateQueries({
+                    queryKey: qKey,
+                })
+            }
         },
     })
 }
 
 export const usePost = <T, S, R>(
     path: string,
-    url?: string,
-    params?: object | null,
+    qKey?: QueryKey | null,
     updater?: (oldData: T, newData: S) => T,
     axiosOptions?: AxiosRequestConfig
 ) => {
@@ -83,16 +61,14 @@ export const usePost = <T, S, R>(
             }
             return post<R>(path, data)
         },
-        url,
-        params,
+        qKey,
         updater
     )
 }
 
 export const useUpdate = <T, S>(
     path: string,
-    url?: string,
-    params?: object,
+    qKey?: QueryKey | null,
     updater?: (oldData: T, updatedData: S) => T,
     axiosOptions?: AxiosRequestConfig
 ) => {
@@ -104,23 +80,16 @@ export const useUpdate = <T, S>(
             }
             return patch(path, data)
         },
-        url,
-        params,
+        qKey,
         updater
     )
 }
 
 export const useDelete = <T>(
     path: string,
-    url: string,
-    params?: object,
+    qKey?: QueryKey | null,
     updater?: (oldData: T, id: string | number) => T
 ) => {
     const { delete: del } = useApi()
-    return useOptimisticMutation(
-        (id) => del(`${path}/${id}`),
-        url,
-        params,
-        updater
-    )
+    return useOptimisticMutation((id) => del(`${path}/${id}`), qKey, updater)
 }

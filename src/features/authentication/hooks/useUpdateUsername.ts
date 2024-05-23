@@ -1,16 +1,18 @@
 import { apiRoutes } from '../../../routes'
 import { useUpdate } from '../../../utils/api/queries'
-import { IUser } from '../interfaces'
+import useQueryKeyStore from '../../../utils/api/useQueryKeyStore'
+import { IUserPreview } from '../interfaces'
 
-interface IUpdatedUsername {
-    username: string
+interface IUpdateUsernameBody {
+    updateType: string
+    newValue: string
 }
 
 const useUpdateUsername = () => {
-    return useUpdate<IUser, IUpdatedUsername>(
-        apiRoutes.updateUsername,
-        apiRoutes.getAuthorizedUser,
-        undefined,
+    const queryKeyStore = useQueryKeyStore()
+    return useUpdate<IUserPreview, IUpdateUsernameBody>(
+        apiRoutes.users,
+        queryKeyStore.users.currentUserPreview.queryKey,
         (oldData, newData) => ({
             ...oldData,
             ...newData,

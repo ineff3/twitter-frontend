@@ -18,6 +18,12 @@ export interface IUser {
     username: string
     userImage: string
 }
+export interface IUserPreview {
+    _id: string
+    firstName: string
+    username: string
+    userImage: string
+}
 
 export interface ILoginResponse {
     accessToken: string

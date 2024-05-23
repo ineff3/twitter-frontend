@@ -1,12 +1,9 @@
-import { apiRoutes } from '../../../routes'
-import { useFetch } from '../../../utils/api/queries'
-
-interface IUsernamesResponse {
-    usernames: string[]
-}
+import { useQuery } from '@tanstack/react-query'
+import useQueryKeyStore from '../../../utils/api/useQueryKeyStore'
 
 const useUsernames = () => {
-    return useFetch<IUsernamesResponse>(apiRoutes.getUsernamesArray)
+    const queryKeyStore = useQueryKeyStore()
+    return useQuery(queryKeyStore.users.usernames)
 }
 
 export default useUsernames

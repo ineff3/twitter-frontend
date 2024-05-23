@@ -1,16 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query'
-import { apiRoutes } from '../../../routes'
-import { useApi } from '../../../utils/api/actions'
-import { IUser } from '../interfaces'
+import useQueryKeyStore from '../../../utils/api/useQueryKeyStore'
 
 const usePrefetchUserData = () => {
     const queryClient = useQueryClient()
-    const { get } = useApi()
+    const queryKeyStore = useQueryKeyStore()
     const prefetchUserData = async () => {
-        await queryClient.prefetchQuery({
-            queryKey: [apiRoutes.getAuthorizedUser],
-            queryFn: () => get<IUser>(apiRoutes.getAuthorizedUser),
-        })
+        await queryClient.prefetchQuery(queryKeyStore.users.currentUserPreview)
     }
     return prefetchUserData
 }

@@ -1,24 +1,17 @@
 export const apiRoutes = {
-    //auth
+    //user
+    users: 'users',
     refreshToken: 'users/refresh',
     login: 'users/login',
     logout: 'users/logout',
     signUp: 'users/signup',
-    //user
-    getAuthorizedUser: 'users/getAuthorizedUser',
-    getUsernamesArray: 'users/getPossibleUsernames',
+    currentUserPreview: 'users/currentUserPreview',
+    getUsernamesArray: 'users/usernames',
     checkUsername: 'users/checkUsernameIsReserved',
-    updateUsername: 'users/updateUsername',
-    updateUserImage: 'users/updateUserImage',
-    fetchUserProfile: (username: string) => {
-        return `users/${username}`
-    },
     //posts
-    getAllPosts: 'posts/getPosts',
-    createPost: 'posts/createPost',
-    likePost: 'posts/likePost',
-    bookmarkPost: 'posts/bookmarkPost',
-    getBookmarkedPosts: 'posts/getBookmarkedPosts',
+    posts: 'posts',
+    likePost: 'posts/like',
+    bookmarkPost: 'posts/bookmark',
 }
 
 export const pageRoutes = {

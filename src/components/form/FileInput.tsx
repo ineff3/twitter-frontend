@@ -20,10 +20,9 @@ const FileInput = ({ onChange, value }: Props) => {
         >
             {({ getRootProps, getInputProps, isDragActive, open }) => (
                 <div className=" flex w-full justify-center">
-                    <div className=" relative h-fit w-fit ">
+                    <div className=" relative h-fit w-fit " {...getRootProps()}>
                         <div
                             className={`overflow-hidden rounded-full ${isDragActive && ' border-2 border-dashed duration-100 ease-in-out '} max-h-[140px] max-w-[140px]  `}
-                            {...getRootProps()}
                         >
                             <input {...getInputProps()} />
                             {!value ? (
@@ -44,6 +43,7 @@ const FileInput = ({ onChange, value }: Props) => {
                             )}
                         </div>
                         <button
+                            type="button"
                             className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent bg-opacity-50 p-1 duration-200 hover:bg-opacity-90 "
                             onClick={(event) => {
                                 event.stopPropagation()

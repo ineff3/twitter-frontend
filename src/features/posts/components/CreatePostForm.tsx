@@ -1,7 +1,6 @@
 import UserIconLink from '../../../components/ui/UserIconLink'
 import { useQueryClient } from '@tanstack/react-query'
-import { apiRoutes } from '../../../routes'
-import { IUser } from '../../authentication/interfaces'
+import { IUserPreview } from '../../authentication/interfaces'
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -11,6 +10,7 @@ import { CreatePostFormType, IPost } from '../interfaces'
 import AttachPicture from './post-creation/AttachPicture'
 import AttachedPictures from './post-creation/AttachedPictures'
 import AttachEmoji from './post-creation/AttachEmoji'
+import useQueryKeyStore from '../../../utils/api/useQueryKeyStore'
 
 interface IProps {
     close: () => void
@@ -58,9 +58,10 @@ const validationSchema = z
 
 const CreatePostForm = ({ close }: IProps) => {
     const queryClient = useQueryClient()
-    const user: IUser | undefined = queryClient.getQueryData([
-        apiRoutes.getAuthorizedUser,
-    ])
+    const queryKeyStore = useQueryKeyStore()
+    const user: IUserPreview | undefined = queryClient.getQueryData(
+        queryKeyStore.users.currentUserPreview.queryKey
+    )
     const {
         handleSubmit,
         register,
@@ -93,7 +94,7 @@ const CreatePostForm = ({ close }: IProps) => {
             onSuccess: (newPost) => {
                 console.log(newPost)
                 queryClient.setQueryData(
-                    [apiRoutes.getAllPosts],
+                    queryKeyStore.posts.all.queryKey,
                     (oldData: IPost[]) => [newPost, ...oldData]
                 )
 

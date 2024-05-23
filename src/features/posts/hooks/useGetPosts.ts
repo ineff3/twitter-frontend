@@ -1,11 +1,9 @@
-import { apiRoutes } from '../../../routes'
-import { useFetch } from '../../../utils/api/queries'
-import { IPost } from '../interfaces'
+import { useQuery } from '@tanstack/react-query'
+import useQueryKeyStore from '../../../utils/api/useQueryKeyStore'
 
 const useGetPosts = () => {
-    return useFetch<IPost[]>(apiRoutes.getAllPosts, null, {
-        // staleTime: Infinity,
-    })
+    const queryKeyStore = useQueryKeyStore()
+    return useQuery(queryKeyStore.posts.all)
 }
 
 export default useGetPosts

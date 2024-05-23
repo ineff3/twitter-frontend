@@ -7,14 +7,16 @@ import { PiSignOut } from 'react-icons/pi'
 import { forwardRef } from 'react'
 import { useLogout } from '../../features/authentication'
 import { Link, useNavigate } from 'react-router-dom'
-import { apiRoutes, pageRoutes } from '../../routes'
-import { IUser } from '../../features/authentication/interfaces'
-import { useFetch } from '../../utils/api/queries'
-import { useQueryClient } from '@tanstack/react-query'
+import { pageRoutes } from '../../routes'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import UserIconLink from '../../components/ui/UserIconLink'
+import useQueryKeyStore from '../../utils/api/useQueryKeyStore'
+import { IUserPreview } from '../../features/authentication/interfaces'
 
 const UserPreview = () => {
-    const user = useFetch<IUser>(apiRoutes.getAuthorizedUser, null, {
+    const queryKeyStore = useQueryKeyStore()
+    const user = useQuery({
+        ...queryKeyStore.users.currentUserPreview,
         staleTime: Infinity,
         gcTime: Infinity,
     })
@@ -65,9 +67,10 @@ const MenuDropdownContent = forwardRef((_, ref: any) => {
     const logout = useLogout()
     const navigate = useNavigate()
     const queryClient = useQueryClient()
-    const user: IUser | undefined = queryClient.getQueryData([
-        apiRoutes.getAuthorizedUser,
-    ])
+    const queryKeyStore = useQueryKeyStore()
+    const user: IUserPreview | undefined = queryClient.getQueryData(
+        queryKeyStore.users.currentUserPreview.queryKey
+    )
     const signOut = async () => {
         await logout()
         navigate(pageRoutes.auth)

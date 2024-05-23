@@ -1,9 +1,9 @@
-import { apiRoutes } from '../../../routes'
-import { useFetch } from '../../../utils/api/queries'
-import { IPost } from '../interfaces'
+import { useQuery } from '@tanstack/react-query'
+import useQueryKeyStore from '../../../utils/api/useQueryKeyStore'
 
 const useGetBookmarkedPosts = () => {
-    return useFetch<IPost[]>(apiRoutes.getAllPosts, { bookmarked: true })
+    const queryKeysStore = useQueryKeyStore()
+    return useQuery(queryKeysStore.posts.all._ctx.bookmarked)
 }
 
 export default useGetBookmarkedPosts

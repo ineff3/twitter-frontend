@@ -1,19 +1,9 @@
-import { apiRoutes } from '../../../routes'
-import { useFetch } from '../../../utils/api/queries'
-import { IUser } from '../../authentication/interfaces'
-
-interface IResponse {
-    isCurrentUser: boolean
-    userData: IUser
-}
-interface IData {
-    username: string
-}
+import { useQuery } from '@tanstack/react-query'
+import useQueryKeyStore from '../../../utils/api/useQueryKeyStore'
 
 const useFetchUserProfile = (username: string) => {
-    return useFetch<IResponse>(apiRoutes.fetchUserProfile(username), null, {
-        gcTime: Infinity,
-    })
+    const querykeyStore = useQueryKeyStore()
+    return useQuery(querykeyStore.users.detail(username))
 }
 
 export default useFetchUserProfile

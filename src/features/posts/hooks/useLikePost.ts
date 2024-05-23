@@ -1,5 +1,6 @@
 import { apiRoutes } from '../../../routes'
 import { usePost } from '../../../utils/api/queries'
+import useQueryKeyStore from '../../../utils/api/useQueryKeyStore'
 import { IPost } from '../interfaces'
 
 interface ILikePostData {
@@ -7,10 +8,10 @@ interface ILikePostData {
 }
 
 const useLikePost = () => {
+    const queryKeyStore = useQueryKeyStore()
     return usePost<IPost[], ILikePostData, null>(
         apiRoutes.likePost,
-        apiRoutes.getAllPosts,
-        null,
+        queryKeyStore.posts.all.queryKey,
         (oldData, newData) => [
             ...oldData.map((post) =>
                 post._id == newData.postId

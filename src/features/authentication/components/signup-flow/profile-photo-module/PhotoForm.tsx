@@ -18,10 +18,10 @@ const PhotoForm = () => {
     const navigate = useNavigate()
 
     const onSubmit: SubmitHandler<FormType> = async (data) => {
-        console.log(data)
         if (data.file) {
             const formData = new FormData()
             formData.set('userImage', data.file[0])
+            formData.set('updateType', 'userImage')
 
             updateUserImageMutation.mutate(formData, {
                 onError(err) {

@@ -1,5 +1,3 @@
-import { IUser } from '../../authentication/interfaces'
-
 interface IPostAuthor {
     id: string
     firstName: string
