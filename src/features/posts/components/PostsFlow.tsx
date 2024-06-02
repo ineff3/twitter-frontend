@@ -1,20 +1,35 @@
+import { useInView } from 'react-intersection-observer'
 import useGetPosts from '../hooks/useGetPosts'
 import Post from './Post'
+import { useEffect } from 'react'
 
 const PostsFlow = () => {
-    const { data, isPending, isError } = useGetPosts()
+    const { ref, inView } = useInView()
+    const { data, fetchNextPage, hasNextPage } = useGetPosts({ limit: 5 })
 
-    // if (isPending) {
-    //     return (
-    //         <div className=" mt-12 flex justify-center">
-    //             <span className="loading loading-spinner loading-lg"></span>
-    //         </div>
-    //     )
-    // }
+    useEffect(() => {
+        if (inView) {
+            fetchNextPage()
+        }
+    }, [inView, fetchNextPage])
 
     return (
         <div className=" flex flex-col">
-            {data && data.map((post) => <Post key={post._id} post={post} />)}
+            {data &&
+                data.pages.map((page) => (
+                    <div key={page.nextPage}>
+                        {page.data.map((post) => (
+                            <Post key={post._id} post={post} />
+                        ))}
+                    </div>
+                ))}
+            {hasNextPage && (
+                <span
+                    ref={ref}
+                    className="loading loading-spinner loading-lg my-4 self-center"
+                ></span>
+            )}
+            {/* {data && data.map((post) => <Post key={post._id} post={post} />)} */}
         </div>
     )
 }

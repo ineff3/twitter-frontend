@@ -13,10 +13,13 @@ export interface IUser {
     _id: string
     firstName: string
     secondName: string
+    bio: string
+    location: string
+    link: string
     email: string
-    password: string
     username: string
     userImage: string
+    backgroundImage: string
 }
 export interface IUserPreview {
     _id: string

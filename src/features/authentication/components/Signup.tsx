@@ -5,6 +5,7 @@ import SignupForm from './SignupForm'
 import { useState } from 'react'
 import { pageRoutes } from '../../../routes'
 import ErrorAlert from '../../../components/ui/ErrorAlert'
+import CloseBtn from '../../../components/ui/CloseBtn'
 
 const Signup = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -23,12 +24,7 @@ const Signup = () => {
                     <p className=" text-2xl font-bold text-secondary">
                         Create a new account
                     </p>
-                    <button
-                        onClick={closeWithPageShift}
-                        className="btn btn-circle btn-ghost btn-sm"
-                    >
-                        ✕
-                    </button>
+                    <CloseBtn onClick={closeWithPageShift} />
                 </div>
                 <div className=" flex flex-col gap-5">
                     {errorMessage && <ErrorAlert errorMessage={errorMessage} />}

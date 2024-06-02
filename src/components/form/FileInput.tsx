@@ -17,6 +17,7 @@ const FileInput = ({ onChange, value }: Props) => {
                 console.log(fileRejections)
             }}
             accept={{ 'image/*': ['.png', '.jpeg', '.jpg'] }}
+            noClick
         >
             {({ getRootProps, getInputProps, isDragActive, open }) => (
                 <div className=" flex w-full justify-center">

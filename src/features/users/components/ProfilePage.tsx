@@ -4,10 +4,15 @@ import ProfileNotFound from './ProfileNotFound'
 import { pageRoutes } from '../../../routes'
 import { Tab } from '@headlessui/react'
 import DescriptionPoints from './DescriptionPoints'
+import { useModal } from '../../../hooks/useModal'
+import Modal from '../../../components/ui/Modal'
+import EditProfileWindow from './edit-profile/EditProfileWindow'
+import { FaUserCircle } from 'react-icons/fa'
 
 const ProfilePage = () => {
     const { username } = useParams()
     const { data, isPending, isError } = useFetchUserProfile(username!)
+    const { show, close, visible } = useModal()
 
     if (isPending) {
         return (
@@ -56,23 +61,56 @@ const ProfilePage = () => {
                     <p className=" text-[12px]">1,070 Tweets</p>
                 </div>
             </header>
-            <div className=" h-full max-h-[130px] bg-base-200"></div>
+            <div className=" h-[200px] bg-base-200">
+                {userData?.backgroundImage && (
+                    <img
+                        src={
+                            new URL(
+                                userData?.backgroundImage,
+                                import.meta.env.VITE_API_BASE_URL
+                            ).href
+                        }
+                        alt="Background Image"
+                        className=" h-full w-full object-cover"
+                    />
+                )}
+            </div>
 
             <div className=" relative -top-[70px] mx-auto flex w-full max-w-screen-md flex-col gap-2">
                 <div className=" px-10">
                     <div className=" flex h-[140px] items-center justify-between">
                         <div className=" h-[110px] w-[110px] overflow-hidden rounded-full">
-                            <img
-                                src={String(imgURL)}
-                                alt="Profile Image"
-                                className="h-full w-full object-cover"
-                            />
+                            {userData?.userImage ? (
+                                <img
+                                    src={String(imgURL)}
+                                    alt="Profile Image"
+                                    className="h-full w-full object-cover"
+                                />
+                            ) : (
+                                <FaUserCircle size={110} />
+                            )}
                         </div>
-                        <div className=" self-end">
-                            <button className=" btn btn-outline btn-md">
-                                Edit profile
-                            </button>
-                        </div>
+                        {data.isCurrentUser && (
+                            <div className=" self-end">
+                                <button
+                                    className=" btn btn-outline btn-md"
+                                    onClick={show}
+                                >
+                                    Edit profile
+                                </button>
+                                <Modal
+                                    isOpen={visible}
+                                    close={close}
+                                    hasPadding={false}
+                                    maxWidth="max-w-lg"
+                                >
+                                    <EditProfileWindow
+                                        close={close}
+                                        username={userData?.username}
+                                    />
+                                </Modal>
+                            </div>
+                        )}
                     </div>
 
                     <div className=" flex flex-col gap-4">
@@ -82,12 +120,11 @@ const ProfilePage = () => {
                             </p>
                             <p className=" text-[12px]">@{userData.username}</p>
                         </div>
-                        <p className=" text-sm text-secondary">
-                            Front-end developer at{' '}
-                            <span className=" link link-primary">
-                                @sometechcompany
-                            </span>
-                        </p>
+                        {userData?.bio && (
+                            <p className=" text-sm text-secondary">
+                                {userData.bio}
+                            </p>
+                        )}
                         <div>
                             <DescriptionPoints userData={userData} />
                         </div>

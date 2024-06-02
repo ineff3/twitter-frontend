@@ -1,6 +1,6 @@
-import { InputHTMLAttributes, forwardRef } from 'react'
+import { InputHTMLAttributes, TextareaHTMLAttributes, forwardRef } from 'react'
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     placeholder?: string
     isInvalid: boolean
     errorMessage?: string
@@ -8,7 +8,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
     primaryBorder?: boolean
 }
 
-const Input = forwardRef(
+const Textarea = forwardRef(
     (
         {
             placeholder,
@@ -30,10 +30,9 @@ const Input = forwardRef(
                             </span>
                         </div>
                     )}
-                    <input
+                    <textarea
                         placeholder={placeholder}
-                        type="text"
-                        className={` ${isInvalid ? 'input-error' : `${primaryBorder && ' input-primary'}`} input input-bordered  w-full max-w-md`}
+                        className={` ${isInvalid ? 'textarea-error' : `${primaryBorder && 'textarea-primary'}`} textarea textarea-bordered  w-full max-w-md resize-none`}
                         ref={ref}
                         {...props}
                     />
@@ -50,4 +49,4 @@ const Input = forwardRef(
     }
 )
 
-export default Input
+export default Textarea

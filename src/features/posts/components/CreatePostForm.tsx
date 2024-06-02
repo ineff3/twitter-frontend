@@ -1,5 +1,5 @@
 import UserIconLink from '../../../components/ui/UserIconLink'
-import { useQueryClient } from '@tanstack/react-query'
+import { InfiniteData, useQueryClient } from '@tanstack/react-query'
 import { IUserPreview } from '../../authentication/interfaces'
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -11,6 +11,8 @@ import AttachPicture from './post-creation/AttachPicture'
 import AttachedPictures from './post-creation/AttachedPictures'
 import AttachEmoji from './post-creation/AttachEmoji'
 import useQueryKeyStore from '../../../utils/api/useQueryKeyStore'
+import CloseBtn from '../../../components/ui/CloseBtn'
+import { IPostsResponse } from '../../../utils/api/interfaces'
 
 interface IProps {
     close: () => void
@@ -92,16 +94,28 @@ const CreatePostForm = ({ close }: IProps) => {
         formData.append('text', data.text)
         createPostMutation.mutate(formData, {
             onSuccess: (newPost) => {
-                console.log(newPost)
                 queryClient.setQueryData(
                     queryKeyStore.posts.all.queryKey,
-                    (oldData: IPost[]) => [newPost, ...oldData]
+                    (oldData: InfiniteData<IPostsResponse> | undefined) => {
+                        if (!oldData) return oldData
+                        const newPage = [newPost, ...oldData.pages[0].data]
+                        return {
+                            ...oldData,
+                            pages: [
+                                {
+                                    ...oldData.pages[0],
+                                    data: newPage,
+                                },
+                                ...oldData.pages.slice(1),
+                            ],
+                        }
+                    }
                 )
-
                 close()
             },
         })
     }
+
     const appendEmoji = (emoji: any) => {
         const currentValue = textArea
         const newValue = `${currentValue}${emoji?.native}`
@@ -114,13 +128,7 @@ const CreatePostForm = ({ close }: IProps) => {
             className=" flex min-h-[280px] flex-col "
         >
             <div className=" mb-5 flex items-center justify-between">
-                <button
-                    type="button"
-                    onClick={close}
-                    className="btn btn-circle btn-ghost btn-sm"
-                >
-                    ✕
-                </button>
+                <CloseBtn onClick={close} />
                 <button
                     type="button"
                     className=" btn  btn-ghost btn-sm text-primary"

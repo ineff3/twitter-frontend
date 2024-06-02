@@ -7,6 +7,8 @@ interface Props {
     children?: ReactNode
     staticMode?: boolean
     asWindow?: boolean
+    maxWidth?: 'max-w-md' | 'max-w-lg' | 'max-w-xl'
+    hasPadding?: boolean
 }
 
 const Modal = ({
@@ -15,6 +17,8 @@ const Modal = ({
     children,
     staticMode = false,
     asWindow = true,
+    maxWidth = 'max-w-md',
+    hasPadding = true,
 }: Props) => {
     return (
         <Transition appear show={isOpen} as={Fragment}>
@@ -39,7 +43,7 @@ const Modal = ({
 
                 <div className="fixed inset-0 overflow-y-auto">
                     <div
-                        className={`flex min-h-full items-center justify-center text-center ${asWindow && 'p-4'}`}
+                        className={`flex min-h-full items-center justify-center text-center `}
                     >
                         <Transition.Child
                             as={Fragment}
@@ -50,9 +54,9 @@ const Modal = ({
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            {/* overflow-hidden overflow-y-auto */}
                             <Dialog.Panel
-                                className={` max-h-[550px]  transform   rounded-2xl bg-base-300 text-left align-middle shadow-xl transition-all ${asWindow ? 'w-full max-w-md p-6' : 'w-fit'}`}
+                                className={` max-h-[550px] transform  overflow-y-auto   rounded-2xl bg-base-300 text-left align-middle shadow-xl transition-all ${asWindow ? `w-full ${maxWidth} ${hasPadding && 'p-6'}` : 'w-fit'}`}
+                                id="modal-content"
                             >
                                 {children}
                             </Dialog.Panel>

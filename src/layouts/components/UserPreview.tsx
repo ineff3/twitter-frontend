@@ -36,9 +36,9 @@ const UserPreview = () => {
                     userImage={user?.data?.userImage}
                 />
             ) : (
-                <>
+                <Link to={user?.data?.username || ''}>
                     <FaUserCircle size={37} />
-                </>
+                </Link>
             )}
             <div className=" flex w-full items-center justify-between">
                 <div className=" flex flex-col">

@@ -14,7 +14,8 @@ export const useApi = () => {
 
         patch: <T>(url: string, data: any, options?: AxiosRequestConfig) =>
             axiosInstance.patch<T>(url, data, options).then((res) => res.data),
-
+        put: <T>(url: string, data: any, options?: AxiosRequestConfig) =>
+            axiosInstance.put<T>(url, data, options).then((res) => res.data),
         delete: <T>(url: string) =>
             axiosInstance.delete<T>(url).then((res) => res.data),
     }

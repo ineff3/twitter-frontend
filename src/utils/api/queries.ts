@@ -85,6 +85,25 @@ export const useUpdate = <T, S>(
     )
 }
 
+export const usePut = <T, S, R>(
+    path: string,
+    qKey?: QueryKey | null,
+    updater?: (oldData: T, updatedData: S) => T,
+    axiosOptions?: AxiosRequestConfig
+) => {
+    const { put } = useApi()
+    return useOptimisticMutation(
+        (data) => {
+            if (axiosOptions) {
+                return put<R>(path, data, axiosOptions)
+            }
+            return put<R>(path, data)
+        },
+        qKey,
+        updater
+    )
+}
+
 export const useDelete = <T>(
     path: string,
     qKey?: QueryKey | null,
