@@ -79,7 +79,7 @@ const ProfilePage = () => {
             <div className=" relative -top-[70px] mx-auto flex w-full max-w-screen-md flex-col gap-2">
                 <div className=" px-10">
                     <div className=" flex h-[140px] items-center justify-between">
-                        <div className=" h-[110px] w-[110px] overflow-hidden rounded-full">
+                        <div className=" h-[110px] w-[110px] overflow-hidden rounded-full bg-base-100">
                             {userData?.userImage ? (
                                 <img
                                     src={String(imgURL)}

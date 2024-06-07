@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import BaseLayout from './layouts/BaseLayout'
 import {
     FlowController,
@@ -11,6 +11,7 @@ import {
     Home,
     Messages,
     Notifications,
+    PostModal,
     Premium,
     Profile,
     Search,
@@ -19,9 +20,12 @@ import {
 import { pageRoutes } from './routes'
 
 const App = () => {
+    const location = useLocation()
+    const state = location.state as { backgroundLocation?: Location }
+
     return (
         <>
-            <Routes>
+            <Routes location={state?.backgroundLocation || location}>
                 <Route element={<RouteAuth />}>
                     <Route path={pageRoutes.auth} element={<Auth />}>
                         <Route path="signup" element={<SignupPage />} />
@@ -51,6 +55,13 @@ const App = () => {
                     </Route>
                 </Route>
             </Routes>
+
+            {/* Render the modal if the backgroundLocation is set */}
+            {state?.backgroundLocation && (
+                <Routes>
+                    <Route path={pageRoutes.post} element={<PostModal />} />
+                </Routes>
+            )}
         </>
     )
 }

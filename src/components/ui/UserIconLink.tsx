@@ -4,26 +4,28 @@ import { Link } from 'react-router-dom'
 interface Props {
     username?: string
     userImage?: string
+    onClick?: () => void
 }
 
-const UserIconLink = ({ username, userImage }: Props) => {
+const UserIconLink = ({ username, userImage, onClick }: Props) => {
     const imgURL = new URL(userImage || '', import.meta.env.VITE_API_BASE_URL)
     return (
         <>
-            {userImage ? (
-                <Link
-                    to={'/' + username || ''}
-                    className=" h-[37px] w-[37px] flex-shrink-0 overflow-hidden rounded-full"
-                >
+            <Link
+                to={'/users/' + username || ''}
+                className=" h-[37px] w-[37px] flex-shrink-0 overflow-hidden rounded-full"
+                onClick={onClick}
+            >
+                {userImage ? (
                     <img
                         src={String(imgURL)}
                         alt="Profile image"
                         className="h-full w-full object-cover"
                     />
-                </Link>
-            ) : (
-                <FaUserCircle size={37} />
-            )}
+                ) : (
+                    <FaUserCircle size={37} />
+                )}
+            </Link>
         </>
     )
 }

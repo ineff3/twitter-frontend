@@ -1,52 +1,64 @@
-import Modal from '../../components/ui/Modal'
-import { CreatePostForm } from '../../features/posts'
-import { useModal } from '../../hooks/useModal'
+import { Link, useLocation } from 'react-router-dom'
+import XIconSvg from '../../components/ui/icons/XIconSvg'
 import NavMenu from './NavMenu'
 import UserPreview from './UserPreview'
+import { FaRegPenToSquare } from 'react-icons/fa6'
+import { pageRoutes } from '../../routes'
 
-const NavSidebar = () => {
-    const { show, close, visible } = useModal()
+const NavSidebar = ({
+    menuOpen,
+    closeMenu,
+}: {
+    menuOpen: boolean
+    closeMenu: () => void
+}) => {
+    const location = useLocation()
     return (
         <>
-            <div className=" fixed h-full w-[220px] border-r border-accent">
+            <div
+                className={` fixed h-full w-[220px] transform border-r border-accent bg-base-100 sm:w-[75px] lg:w-[220px] ${menuOpen ? 'animate-slide-in-left' : 'animate-slide-out-left'}`}
+            >
                 <div className=" flex h-full flex-col pb-6 pt-3 ">
                     <div className=" flex flex-1 flex-col">
                         <div className=" mb-3 px-4">
-                            <a className=" btn btn-ghost p-3">
-                                <svg
-                                    width="21"
-                                    height="20"
-                                    viewBox="0 0 16 15"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M5.20002 0.0749817H0.212524L6.09777 7.92246L0.533149 14.325H2.42127L6.97272 9.08882L10.9 14.325H15.8875L9.75432 6.14691L15.0325 0.0749817H13.1444L8.87937 4.98126L5.20002 0.0749817ZM11.6125 12.9L3.06252 1.49998H4.48752L13.0375 12.9H11.6125Z"
-                                        fill="white"
-                                    />
-                                </svg>
-                            </a>
+                            <Link
+                                to={'/'}
+                                className=" btn btn-ghost p-3 text-secondary"
+                                onClick={closeMenu}
+                            >
+                                <XIconSvg
+                                    width={20}
+                                    height={20}
+                                    fill="currentColor"
+                                />
+                            </Link>
                         </div>
                         <div>
-                            <NavMenu />
+                            <NavMenu closeMenu={closeMenu} />
                         </div>
                     </div>
                     <div className=" px-4">
                         <div className=" mb-5 flex justify-center">
-                            <button
-                                onClick={show}
-                                className=" btn btn-primary h-fit min-h-0 rounded-2xl px-16 py-3"
+                            <Link
+                                to={pageRoutes.post}
+                                state={{ backgroundLocation: location }}
+                                onClick={() => {
+                                    closeMenu()
+                                }}
+                                className=" btn btn-primary btn-sm h-fit min-h-0 rounded-2xl px-14 py-3  sm:px-3 sm:py-3  lg:h-fit lg:min-h-0 lg:rounded-2xl lg:px-16 lg:py-3"
                             >
-                                Post
-                            </button>
+                                <p className=" sm:hidden lg:block">Post</p>
+                                <FaRegPenToSquare
+                                    height={13}
+                                    width={13}
+                                    className="hidden sm:block lg:hidden"
+                                />
+                            </Link>
                         </div>
-                        <UserPreview />
+                        <UserPreview closeMenu={closeMenu} />
                     </div>
                 </div>
             </div>
-            <Modal isOpen={visible} close={close} staticMode>
-                <CreatePostForm close={close} />
-            </Modal>
         </>
     )
 }

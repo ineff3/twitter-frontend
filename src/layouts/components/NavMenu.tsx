@@ -103,7 +103,7 @@ const menuItems = [
     },
 ]
 
-const NavMenu = () => {
+const NavMenu = ({ closeMenu }: { closeMenu: () => void }) => {
     const location = useLocation()
     const linkStyles = ' rounded-none px-7 '
     const activeLinkStyles = linkStyles + ' !text-secondary !bg-transparent '
@@ -120,9 +120,10 @@ const NavMenu = () => {
                             isActive ? activeLinkStyles : linkStyles
                         }
                         to={item.path}
+                        onClick={closeMenu}
                     >
                         {item.svg}
-                        <p>{item.name}</p>
+                        <p className=" sm:hidden lg:block">{item.name}</p>
                     </NavLink>
                 </li>
             ))}

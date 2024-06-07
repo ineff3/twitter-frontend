@@ -1,7 +1,6 @@
-import { FaUserCircle } from 'react-icons/fa'
 import { SlOptions } from 'react-icons/sl'
 import MenuDropdown from '../../components/ui/MenuDropdown'
-import { Menu } from '@headlessui/react'
+import { MenuItem, MenuItems } from '@headlessui/react'
 import { IoSettingsOutline } from 'react-icons/io5'
 import { PiSignOut } from 'react-icons/pi'
 import { forwardRef } from 'react'
@@ -13,7 +12,7 @@ import UserIconLink from '../../components/ui/UserIconLink'
 import useQueryKeyStore from '../../utils/api/useQueryKeyStore'
 import { IUserPreview } from '../../features/authentication/interfaces'
 
-const UserPreview = () => {
+const UserPreview = ({ closeMenu }: { closeMenu: () => void }) => {
     const queryKeyStore = useQueryKeyStore()
     const user = useQuery({
         ...queryKeyStore.users.currentUserPreview,
@@ -29,19 +28,14 @@ const UserPreview = () => {
     }
 
     return (
-        <div className=" flex items-center gap-2">
-            {imgURL ? (
-                <UserIconLink
-                    username={user?.data?.username}
-                    userImage={user?.data?.userImage}
-                />
-            ) : (
-                <Link to={user?.data?.username || ''}>
-                    <FaUserCircle size={37} />
-                </Link>
-            )}
-            <div className=" flex w-full items-center justify-between">
-                <div className=" flex flex-col">
+        <div className=" flex items-center gap-2 sm:flex-col lg:flex-row">
+            <UserIconLink
+                onClick={closeMenu}
+                username={user?.data?.username}
+                userImage={user?.data?.userImage}
+            />
+            <div className=" flex w-full items-center justify-between sm:justify-center lg:justify-between ">
+                <div className=" flex flex-col sm:hidden lg:flex">
                     <p className=" text-sm text-secondary">
                         {user?.data?.firstName}
                     </p>
@@ -76,36 +70,29 @@ const MenuDropdownContent = forwardRef((_, ref: any) => {
         navigate(pageRoutes.auth)
     }
     return (
-        <Menu.Items
+        <MenuItems
+            anchor="top end"
             ref={ref}
-            className="absolute -right-12 bottom-[50px] flex  w-[240px] origin-bottom-right flex-col overflow-hidden rounded-xl bg-base-200 shadow-lg ring-1 ring-black/5 focus:outline-none"
+            className=" absolute z-[60] flex w-[240px] origin-bottom-right flex-col overflow-hidden rounded-xl bg-base-200 shadow-lg ring-1 ring-black/5 focus:outline-none"
         >
-            <Menu.Item>
-                {({ active }) => (
-                    <Link
-                        to={user?.username || ''}
-                        className={`${
-                            active ? 'bg-neutral text-neutral-content' : ''
-                        } flex items-center gap-4 px-4 py-2`}
-                    >
-                        <IoSettingsOutline size={17} />
-                        <p>Manage Account</p>
-                    </Link>
-                )}
-            </Menu.Item>
-            <Menu.Item>
-                {({ active }) => (
-                    <button
-                        onClick={signOut}
-                        className={`${
-                            active ? 'bg-neutral text-neutral-content' : ''
-                        } flex items-center gap-4 px-4 py-2`}
-                    >
-                        <PiSignOut size={17} />
-                        <p>Log out</p>
-                    </button>
-                )}
-            </Menu.Item>
-        </Menu.Items>
+            <MenuItem>
+                <Link
+                    to={'/users/' + (user?.username || '')}
+                    className={` flex items-center gap-4 px-4 py-2 data-[focus]:bg-neutral data-[focus]:text-secondary`}
+                >
+                    <IoSettingsOutline size={17} />
+                    <p>Manage Account</p>
+                </Link>
+            </MenuItem>
+            <MenuItem>
+                <button
+                    onClick={signOut}
+                    className={` flex items-center gap-4 px-4 py-2 data-[focus]:bg-neutral data-[focus]:text-secondary`}
+                >
+                    <PiSignOut size={17} />
+                    <p>Log out</p>
+                </button>
+            </MenuItem>
+        </MenuItems>
     )
 })

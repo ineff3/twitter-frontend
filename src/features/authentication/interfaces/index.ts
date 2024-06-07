@@ -19,6 +19,8 @@ export interface IUser {
     email: string
     username: string
     userImage: string
+    bornDate: string
+    joinedDate: string
     backgroundImage: string
 }
 export interface IUserPreview {

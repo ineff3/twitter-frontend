@@ -26,7 +26,7 @@ const Signup = () => {
                     </p>
                     <CloseBtn onClick={closeWithPageShift} />
                 </div>
-                <div className=" flex flex-col gap-5">
+                <div className=" flex w-full flex-col gap-5">
                     {errorMessage && <ErrorAlert errorMessage={errorMessage} />}
                     <SignupForm setErrorMessage={setErrorMessage} />
                 </div>

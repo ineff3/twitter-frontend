@@ -17,7 +17,8 @@ export const apiRoutes = {
 export const pageRoutes = {
     home: '/',
     auth: '/auth',
-    profile: '/:username',
+    profile: '/users/:username',
     authSignup: '/auth/signup',
     signupFlow: '/signup-flow',
+    post: '/post',
 }

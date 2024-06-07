@@ -18,7 +18,9 @@ const LikeSection = ({ postId, isLiked, likedBy }: Props) => {
                 onClick={onPostLike}
                 className=" btn btn-circle btn-ghost btn-sm"
             >
-                <div className={` ${isLiked && 'text-[#F61164]'}`}>
+                <div
+                    className={` transform transition duration-500 ${isLiked && 'animate-slide-up-and-down text-[#F61164]'}`}
+                >
                     <LikeIconSvg
                         width={19}
                         height={19}

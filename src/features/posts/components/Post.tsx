@@ -3,7 +3,6 @@ import { convertPostDate } from '../utils/dateConvertions'
 import UserIconLink from '../../../components/ui/UserIconLink'
 import { SlOptions } from 'react-icons/sl'
 import LikeSection from './post-items/LikeSection'
-import BookmarkIconSvg from '../../../components/ui/icons/BookmarkIconSvg'
 import RepostIconSvg from '../../../components/ui/icons/RepostIconSvg'
 import CommentIconSvg from '../../../components/ui/icons/CommentIconSvg'
 import BookmarkSection from './post-items/BookmarkSection'
@@ -15,7 +14,7 @@ interface Props {
 const Post = ({ post }: Props) => {
     const createdDate = new Date(post.dateCreated)
     return (
-        <div className=" border-b border-accent p-10">
+        <div className=" border-b border-accent p-5 md:p-10">
             <div className=" flex gap-3">
                 <UserIconLink
                     username={post.author.username}
@@ -30,7 +29,9 @@ const Post = ({ post }: Props) => {
                                     {post.author.firstName}{' '}
                                     {post.author.secondName}
                                 </p>
-                                <p>@{post.author.username}</p>
+                                <p className=" hidden sm:block">
+                                    @{post.author.username}
+                                </p>
                                 <p>·</p>
                                 <p>{convertPostDate(createdDate)}</p>
                             </div>
@@ -45,7 +46,7 @@ const Post = ({ post }: Props) => {
                         )}
                         {post?.postImages?.length > 0 && (
                             <div
-                                className={` grid  grid-cols-[repeat(auto-fit,minmax(230px,1fr))]  overflow-hidden rounded-lg ${post.postImages.length > 2 ? 'max-h-[550px] grid-rows-2 ' : 'max-h-[500px] grid-rows-1'}  `}
+                                className={` grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))]  overflow-hidden rounded-lg ${post.postImages.length > 2 ? 'max-h-[550px] grid-rows-2 ' : 'max-h-[500px] grid-rows-1'}  `}
                             >
                                 {post.postImages?.map((path, index) => (
                                     <div

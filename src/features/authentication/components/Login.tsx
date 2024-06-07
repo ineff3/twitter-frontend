@@ -5,25 +5,28 @@ import { useState } from 'react'
 const Login = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
     return (
-        <div className=" mx-auto flex w-full max-w-screen-lg flex-auto justify-between font-montserrat">
-            <div className=" flex w-full max-w-xl flex-col border-r border-accent pb-5 pl-7 pt-10 text-secondary">
+        <div className=" mx-auto flex w-full max-w-screen-lg flex-auto flex-col-reverse items-center justify-between font-montserrat md:flex-row md:items-stretch">
+            <div className=" flex w-full max-w-xl flex-1 flex-col items-center pb-5 pt-10 text-secondary md:items-baseline md:border-r md:border-accent md:pl-7">
                 <div>
-                    <p className="  mb-5 max-w-md text-3xl font-bold ">
-                        <span className=" text-primary">
-                            See what`s happening
-                        </span>{' '}
-                        around you right now
-                    </p>
-                    <p className=" text-md mb-5 ">
-                        Join your friends on Twitter today!
-                    </p>
+                    <div className=" text-center md:text-start">
+                        <p className="  mb-5 max-w-md text-2xl font-bold sm:text-3xl ">
+                            <span className=" text-primary">
+                                See what`s happening
+                            </span>{' '}
+                            <br />
+                            around you right now
+                        </p>
+                        <p className=" text-md mb-5 ">
+                            Join your friends on Twitter today!
+                        </p>
+                    </div>
                     <img
                         className=" max-w-[415px] "
                         src="/social-girl1.png"
                         alt="socials"
                     />
                 </div>
-                <div className=" flex max-w-[415px] flex-1 flex-col items-center justify-end text-[12px] text-base-content">
+                <div className=" flex w-full max-w-[415px] flex-1 flex-col items-center justify-end text-[12px] text-base-content">
                     © 2024 Twitter-Clone, Inc.
                 </div>
             </div>
@@ -48,7 +51,7 @@ const Login = () => {
                         </Link>
                     </p>
                 </div>
-                <p className=" text-3xl font-bold text-secondary">
+                <p className=" text-2xl font-bold text-secondary sm:text-3xl">
                     Find out what's trending.
                 </p>
                 <div>
