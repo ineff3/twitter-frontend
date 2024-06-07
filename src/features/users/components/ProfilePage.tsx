@@ -58,10 +58,10 @@ const ProfilePage = () => {
                     <p className=" font-bold text-secondary">
                         {userData.firstName} {userData.secondName}
                     </p>
-                    <p className=" text-[12px]">1,070 Tweets</p>
+                    <p className=" text-sm">1,070 Tweets</p>
                 </div>
             </header>
-            <div className=" h-[200px] bg-base-200">
+            <div className=" h-[250px] bg-base-200">
                 {userData?.backgroundImage && (
                     <img
                         src={
@@ -102,7 +102,6 @@ const ProfilePage = () => {
                                     isOpen={visible}
                                     close={close}
                                     hasPadding={false}
-                                    maxWidth="max-w-lg"
                                 >
                                     <EditProfileWindow
                                         close={close}
@@ -118,7 +117,7 @@ const ProfilePage = () => {
                             <p className=" font-bold text-secondary">
                                 {userData.firstName}
                             </p>
-                            <p className=" text-[12px]">@{userData.username}</p>
+                            <p className=" text-sm">@{userData.username}</p>
                         </div>
                         {userData?.bio && (
                             <p className=" text-sm text-secondary">

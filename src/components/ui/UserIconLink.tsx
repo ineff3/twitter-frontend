@@ -13,7 +13,7 @@ const UserIconLink = ({ username, userImage, onClick }: Props) => {
         <>
             <Link
                 to={'/users/' + username || ''}
-                className=" h-[37px] w-[37px] flex-shrink-0 overflow-hidden rounded-full"
+                className=" h-[45px] w-[45px] flex-shrink-0 overflow-hidden rounded-full"
                 onClick={onClick}
             >
                 {userImage ? (
@@ -23,7 +23,7 @@ const UserIconLink = ({ username, userImage, onClick }: Props) => {
                         className="h-full w-full object-cover"
                     />
                 ) : (
-                    <FaUserCircle size={37} />
+                    <FaUserCircle size={45} />
                 )}
             </Link>
         </>

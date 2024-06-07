@@ -7,7 +7,7 @@ const ProfilePhotoModule = () => {
                 <p className=" text-2xl font-bold text-secondary">
                     Pick a profile picture
                 </p>
-                <p className=" text-[12px]">
+                <p className=" text-sm">
                     Have a favourite selfie? Upload it now
                 </p>
             </div>

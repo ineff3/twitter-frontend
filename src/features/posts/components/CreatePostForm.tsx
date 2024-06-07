@@ -125,13 +125,13 @@ const CreatePostForm = ({ close }: IProps) => {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className=" flex min-h-[280px] flex-col "
+            className=" flex min-h-[350px] flex-col "
         >
             <div className=" mb-5 flex items-center justify-between">
                 <CloseBtn onClick={close} />
                 <button
                     type="button"
-                    className=" btn  btn-ghost btn-sm text-primary"
+                    className=" btn btn-ghost text-base text-primary"
                 >
                     Drafts
                 </button>
@@ -146,8 +146,9 @@ const CreatePostForm = ({ close }: IProps) => {
                     <label className=" form-control">
                         <textarea
                             {...register('text')}
-                            className="textarea textarea-bordered  max-h-[260px]  w-full"
+                            className="textarea textarea-bordered max-h-[200px]  w-full  resize-none text-base"
                             placeholder="What is happening?"
+                            rows={3}
                         />
                         <div className="label">
                             {errors?.text && (
@@ -164,7 +165,7 @@ const CreatePostForm = ({ close }: IProps) => {
             <div>
                 <div className=" divider"></div>
                 <div className=" flex  items-center justify-between">
-                    <div className=" flex items-center ">
+                    <div className=" flex items-center gap-1.5 ">
                         <AttachPicture
                             maxFilesAttached={
                                 fields.length >= MAX_IMAGES_PER_POST
@@ -195,7 +196,7 @@ const CreatePostForm = ({ close }: IProps) => {
 
                     <button
                         type="submit"
-                        className={`  btn btn-primary btn-xs ${(errors?.postImages || errors?.text || !isDirty) && 'btn-disabled !bg-base-200'} `}
+                        className={`  btn btn-primary btn-sm ${(errors?.postImages || errors?.text || !isDirty) && 'btn-disabled !bg-base-200'} `}
                     >
                         Post
                     </button>

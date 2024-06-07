@@ -17,7 +17,7 @@ const BaseLayout = () => {
     }
 
     return (
-        <div className="mx-auto w-full max-w-[1450px] flex-1 flex-col justify-between">
+        <div className="mx-auto w-full max-w-[1250px] flex-1 flex-col justify-between">
             <div className=" flex h-[50px] w-full items-center justify-end border-b border-accent px-2 sm:hidden">
                 <button
                     className=" btn btn-circle btn-ghost text-secondary"
@@ -39,7 +39,7 @@ const BaseLayout = () => {
                 )}
             </div>
             <div className=" flex w-full">
-                <div className="hidden w-full max-w-[220px] sm:block sm:max-w-[75px] lg:max-w-[220px]">
+                <div className="hidden w-full max-w-[270px] sm:block sm:max-w-[75px] lg:max-w-[270px]">
                     <NavSidebar menuOpen closeMenu={closeMenu} />
                 </div>
                 <div className=" w-full max-w-screen-lg ">

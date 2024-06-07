@@ -139,7 +139,7 @@ const BackgroundImageSection = ({
     control: Control<FormType>
 }) => {
     return (
-        <div className=" h-[130px] bg-base-200">
+        <div className=" h-[190px] bg-base-200">
             <Controller
                 control={control}
                 name="backgroundImage"

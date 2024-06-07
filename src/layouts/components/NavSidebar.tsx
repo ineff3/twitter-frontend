@@ -16,7 +16,7 @@ const NavSidebar = ({
     return (
         <>
             <div
-                className={` fixed h-full w-[220px] transform border-r border-accent bg-base-100 sm:w-[75px] lg:w-[220px] ${menuOpen ? 'animate-slide-in-left' : 'animate-slide-out-left'}`}
+                className={` fixed h-full w-[270px] transform border-r border-accent bg-base-100 sm:w-[75px] lg:w-[270px] ${menuOpen ? 'animate-slide-in-left' : 'animate-slide-out-left'}`}
             >
                 <div className=" flex h-full flex-col pb-6 pt-3 ">
                     <div className=" flex flex-1 flex-col">
@@ -27,8 +27,8 @@ const NavSidebar = ({
                                 onClick={closeMenu}
                             >
                                 <XIconSvg
-                                    width={20}
-                                    height={20}
+                                    width={25}
+                                    height={25}
                                     fill="currentColor"
                                 />
                             </Link>
@@ -45,7 +45,7 @@ const NavSidebar = ({
                                 onClick={() => {
                                     closeMenu()
                                 }}
-                                className=" btn btn-primary btn-sm h-fit min-h-0 rounded-2xl px-14 py-3  sm:px-3 sm:py-3  lg:h-fit lg:min-h-0 lg:rounded-2xl lg:px-16 lg:py-3"
+                                className=" btn btn-primary h-fit min-h-0 rounded-2xl px-14 py-4  !text-lg sm:px-3  sm:py-2 lg:h-fit lg:min-h-0 lg:rounded-2xl lg:px-16 lg:py-2"
                             >
                                 <p className=" sm:hidden lg:block">Post</p>
                                 <FaRegPenToSquare

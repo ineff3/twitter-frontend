@@ -17,8 +17,8 @@ const BookmarkSection = ({ postId, isBookmarked }: Props) => {
         <button className=" btn btn-circle btn-ghost btn-sm" onClick={onClick}>
             <div className={` ${isBookmarked && 'text-primary'}`}>
                 <BookmarkIconSvg
-                    width={19}
-                    height={19}
+                    width={22}
+                    height={22}
                     stroke={isBookmarked ? 'none' : 'currentColor'}
                     fill={isBookmarked ? 'currentColor' : 'none'}
                 />

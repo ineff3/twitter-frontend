@@ -1,4 +1,4 @@
-import { Tab } from '@headlessui/react'
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import PostsFlow from './PostsFlow'
 
 const tabItems = [
@@ -12,8 +12,8 @@ const tabItems = [
 
 const PostTabsWrapper = () => {
     return (
-        <Tab.Group>
-            <Tab.List className=" flex border-b border-accent">
+        <TabGroup>
+            <TabList className=" flex border-b border-accent">
                 {tabItems.map((item, index) => (
                     <Tab
                         key={index}
@@ -21,21 +21,21 @@ const PostTabsWrapper = () => {
                     >
                         {({ selected }) => (
                             <div
-                                className={`  box-border border-b-[3.5px] border-primary px-3 py-3.5 text-sm ${selected ? 'text-secondary' : ' border-none'}`}
+                                className={`  box-border border-b-[3.5px] border-primary px-3 py-3.5 ${selected ? 'text-secondary' : ' border-none'}`}
                             >
                                 {item.name}
                             </div>
                         )}
                     </Tab>
                 ))}
-            </Tab.List>
-            <Tab.Panels>
-                <Tab.Panel>
+            </TabList>
+            <TabPanels>
+                <TabPanel>
                     <PostsFlow />
-                </Tab.Panel>
-                <Tab.Panel>Content 2</Tab.Panel>
-            </Tab.Panels>
-        </Tab.Group>
+                </TabPanel>
+                <TabPanel>Content 2</TabPanel>
+            </TabPanels>
+        </TabGroup>
     )
 }
 

@@ -1,5 +1,10 @@
 import { Fragment, ReactNode } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import {
+    Dialog,
+    DialogPanel,
+    Transition,
+    TransitionChild,
+} from '@headlessui/react'
 
 interface Props {
     isOpen: boolean
@@ -17,7 +22,7 @@ const Modal = ({
     children,
     staticMode = false,
     asWindow = true,
-    maxWidth = 'max-w-md',
+    maxWidth = 'max-w-xl',
     hasPadding = true,
 }: Props) => {
     return (
@@ -29,7 +34,7 @@ const Modal = ({
                     return staticMode ? {} : close()
                 }}
             >
-                <Transition.Child
+                <TransitionChild
                     as={Fragment}
                     enter="ease-out duration-300"
                     enterFrom="opacity-0"
@@ -39,13 +44,13 @@ const Modal = ({
                     leaveTo="opacity-0"
                 >
                     <div className="fixed inset-0 bg-black/25" />
-                </Transition.Child>
+                </TransitionChild>
 
                 <div className="fixed inset-0 overflow-y-auto">
                     <div
                         className={`flex min-h-full items-center justify-center text-center `}
                     >
-                        <Transition.Child
+                        <TransitionChild
                             as={Fragment}
                             enter="ease-out duration-300"
                             enterFrom="opacity-0 scale-95"
@@ -54,13 +59,13 @@ const Modal = ({
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel
-                                className={` max-h-[550px] transform  overflow-y-auto   rounded-2xl bg-base-300 text-left align-middle shadow-xl transition-all ${asWindow ? `w-full ${maxWidth} ${hasPadding && 'p-6'}` : 'w-fit'}`}
+                            <DialogPanel
+                                className={` max-h-[700px] transform  overflow-y-auto   rounded-2xl bg-base-300 text-left align-middle shadow-xl transition-all ${asWindow ? `w-full ${maxWidth} ${hasPadding && 'p-8'}` : 'w-fit'}`}
                                 id="modal-content"
                             >
                                 {children}
-                            </Dialog.Panel>
-                        </Transition.Child>
+                            </DialogPanel>
+                        </TransitionChild>
                     </div>
                 </div>
             </Dialog>

@@ -39,7 +39,7 @@ const UsernameModule = ({ next }: Props) => {
                     <p className=" text-2xl font-bold text-secondary">
                         What should we call you?
                     </p>
-                    <p className=" text-[12px]">
+                    <p className=" text-sm">
                         Your @username is unique. You can always change it
                         later.
                     </p>

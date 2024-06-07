@@ -1,8 +1,8 @@
 const ImageIcon = () => {
     return (
         <svg
-            width="16px"
-            height="16px"
+            width="18px"
+            height="18px"
             viewBox="0 0 20 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

@@ -21,7 +21,12 @@ const FlowController = () => {
     return (
         <>
             {from === pageRoutes.authSignup ? (
-                <Modal isOpen={visible} close={modalClose} staticMode>
+                <Modal
+                    isOpen={visible}
+                    close={modalClose}
+                    staticMode
+                    maxWidth="max-w-md"
+                >
                     <div className=" flex min-h-[430px] flex-col ">
                         <div className=" mb-7 self-center ">
                             <svg

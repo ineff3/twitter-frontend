@@ -19,7 +19,7 @@ const GeneratedUsernames = ({ setUsername }: Props) => {
     }
 
     return (
-        <div className=" flex flex-wrap gap-1 text-[12px] text-primary">
+        <div className=" flex flex-wrap gap-1 text-sm text-primary">
             {data.usernames.map((name, index) => (
                 <span
                     className=" cursor-pointer"

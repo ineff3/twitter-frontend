@@ -36,15 +36,13 @@ const UserPreview = ({ closeMenu }: { closeMenu: () => void }) => {
             />
             <div className=" flex w-full items-center justify-between sm:justify-center lg:justify-between ">
                 <div className=" flex flex-col sm:hidden lg:flex">
-                    <p className=" text-sm text-secondary">
-                        {user?.data?.firstName}
-                    </p>
-                    <p className=" text-[12px]">@{user?.data?.username}</p>
+                    <p className=" text-secondary">{user?.data?.firstName}</p>
+                    <p className=" text-sm ">@{user?.data?.username}</p>
                 </div>
                 <MenuDropdown
                     btnContent={
-                        <div className=" btn btn-circle btn-ghost btn-sm">
-                            <SlOptions />
+                        <div className=" btn btn-circle btn-ghost btn-md">
+                            <SlOptions size={18} />
                         </div>
                     }
                 >
@@ -78,7 +76,7 @@ const MenuDropdownContent = forwardRef((_, ref: any) => {
             <MenuItem>
                 <Link
                     to={'/users/' + (user?.username || '')}
-                    className={` flex items-center gap-4 px-4 py-2 data-[focus]:bg-neutral data-[focus]:text-secondary`}
+                    className={` flex items-center gap-4 px-6 py-3 data-[focus]:bg-neutral data-[focus]:text-secondary`}
                 >
                     <IoSettingsOutline size={17} />
                     <p>Manage Account</p>
@@ -87,7 +85,7 @@ const MenuDropdownContent = forwardRef((_, ref: any) => {
             <MenuItem>
                 <button
                     onClick={signOut}
-                    className={` flex items-center gap-4 px-4 py-2 data-[focus]:bg-neutral data-[focus]:text-secondary`}
+                    className={` flex items-center gap-4 px-6 py-3 data-[focus]:bg-neutral data-[focus]:text-secondary`}
                 >
                     <PiSignOut size={17} />
                     <p>Log out</p>

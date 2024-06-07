@@ -7,7 +7,7 @@ const CloseBtn = ({ onClick }: Props) => {
         <button
             type="button"
             onClick={onClick}
-            className="btn btn-circle btn-ghost btn-sm"
+            className="btn btn-circle btn-ghost text-base "
         >
             ✕
         </button>

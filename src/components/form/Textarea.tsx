@@ -22,7 +22,7 @@ const Textarea = forwardRef(
     ) => {
         return (
             <>
-                <label className=" form-control w-full max-w-md">
+                <label className=" form-control w-full max-w-lg">
                     {label && (
                         <div className="label">
                             <span className="label-text font-semibold">
@@ -32,7 +32,7 @@ const Textarea = forwardRef(
                     )}
                     <textarea
                         placeholder={placeholder}
-                        className={` ${isInvalid ? 'textarea-error' : `${primaryBorder && 'textarea-primary'}`} textarea textarea-bordered  w-full max-w-md resize-none`}
+                        className={` ${isInvalid ? 'textarea-error' : `${primaryBorder && 'textarea-primary'}`} textarea textarea-bordered  w-full max-w-lg resize-none text-base`}
                         ref={ref}
                         {...props}
                     />

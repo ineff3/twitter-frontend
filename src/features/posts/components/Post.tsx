@@ -24,7 +24,7 @@ const Post = ({ post }: Props) => {
                 <div className=" flex flex-1 flex-col gap-5">
                     <div className=" flex flex-col gap-2">
                         <div className=" flex justify-between ">
-                            <div className="flex items-center gap-2 text-[12px]">
+                            <div className="flex items-center gap-2 text-sm">
                                 <p className=" font-medium text-secondary">
                                     {post.author.firstName}{' '}
                                     {post.author.secondName}
@@ -36,13 +36,11 @@ const Post = ({ post }: Props) => {
                                 <p>{convertPostDate(createdDate)}</p>
                             </div>
                             <button className=" btn btn-ghost btn-sm">
-                                <SlOptions size={15} />
+                                <SlOptions size={18} />
                             </button>
                         </div>
                         {post.text && (
-                            <p className=" text-sm text-secondary">
-                                {post.text}
-                            </p>
+                            <p className="  text-secondary">{post.text}</p>
                         )}
                         {post?.postImages?.length > 0 && (
                             <div
@@ -68,19 +66,19 @@ const Post = ({ post }: Props) => {
                             </div>
                         )}
                     </div>
-                    <div className=" flex max-w-lg justify-between">
+                    <div className=" flex justify-between">
                         <div className=" flex items-center gap-1.5">
                             <CommentIconSvg
-                                width={19}
-                                height={19}
+                                width={22}
+                                height={22}
                                 fill="currentColor"
                             />
                             <p>3</p>
                         </div>
                         <div className=" flex items-center gap-1.5">
                             <RepostIconSvg
-                                width={19}
-                                height={19}
+                                width={22}
+                                height={22}
                                 fill="currentColor"
                             />
                             <p>12</p>

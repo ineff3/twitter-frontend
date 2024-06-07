@@ -17,7 +17,7 @@ const DescriptionPoints = ({ userData }: { userData: IUser }) => {
             className={` flex flex-wrap ${allPointsExist ? 'justify-between' : ' gap-2 sm:gap-4'} text-sm `}
         >
             {userData?.location && (
-                <div className=" flex items-center gap-1.5">
+                <div className=" flex items-center gap-2">
                     <LocationIconSvg
                         width={20}
                         height={20}
@@ -27,7 +27,7 @@ const DescriptionPoints = ({ userData }: { userData: IUser }) => {
                 </div>
             )}
             {userData?.link && (
-                <div className=" flex items-center gap-1.5">
+                <div className=" flex items-center gap-2">
                     <LinkIconSvg width={20} height={20} fill="currentColor" />
                     <a
                         target="_blank"
@@ -39,7 +39,7 @@ const DescriptionPoints = ({ userData }: { userData: IUser }) => {
                 </div>
             )}
             {userData?.bornDate && (
-                <div className=" flex items-center gap-1.5">
+                <div className=" flex items-center gap-2">
                     <BornIconSvg width={20} height={20} fill="currentColor" />
                     <p>
                         Born{' '}
@@ -48,7 +48,7 @@ const DescriptionPoints = ({ userData }: { userData: IUser }) => {
                 </div>
             )}
             {userData?.joinedDate && (
-                <div className=" flex items-center gap-1.5">
+                <div className=" flex items-center gap-2">
                     <CalendarIconSvg
                         width={20}
                         height={20}

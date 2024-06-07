@@ -22,7 +22,7 @@ const Input = forwardRef(
     ) => {
         return (
             <>
-                <label className=" form-control w-full max-w-md">
+                <label className=" form-control w-full max-w-lg">
                     {label && (
                         <div className="label">
                             <span className="label-text font-semibold">
@@ -33,7 +33,7 @@ const Input = forwardRef(
                     <input
                         placeholder={placeholder}
                         type="text"
-                        className={` ${isInvalid ? 'input-error' : `${primaryBorder && ' input-primary'}`} input input-bordered  w-full max-w-md`}
+                        className={` ${isInvalid ? 'input-error' : `${primaryBorder && ' input-primary'}`} input input-bordered w-full  max-w-lg text-base`}
                         ref={ref}
                         {...props}
                     />

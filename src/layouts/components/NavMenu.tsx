@@ -6,8 +6,8 @@ const menuItems = [
         name: 'Home',
         svg: (
             <svg
-                width="18"
-                height="18"
+                width="20"
+                height="20"
                 viewBox="0 0 13 13"
                 fill="none"
                 stroke="currentColor"
@@ -22,8 +22,8 @@ const menuItems = [
         name: 'Search',
         svg: (
             <svg
-                width="18"
-                height="18"
+                width="20"
+                height="20"
                 viewBox="0 0 15 16"
                 fill="none"
                 stroke="currentColor"
@@ -39,8 +39,8 @@ const menuItems = [
         name: 'Notifications',
         svg: (
             <svg
-                width="18"
-                height="18"
+                width="20"
+                height="20"
                 viewBox="0 0 15 16"
                 fill="none"
                 stroke="currentColor"
@@ -57,8 +57,8 @@ const menuItems = [
         name: 'Messages',
         svg: (
             <svg
-                width="18"
-                height="18"
+                width="20"
+                height="20"
                 viewBox="0 0 15 16"
                 fill="none"
                 stroke="currentColor"
@@ -74,8 +74,8 @@ const menuItems = [
         name: 'Bookmarks',
         svg: (
             <svg
-                width="18"
-                height="18"
+                width="20"
+                height="20"
                 viewBox="0 0 15 15"
                 fill="none"
                 stroke="currentColor"
@@ -90,8 +90,8 @@ const menuItems = [
         name: 'Premium',
         svg: (
             <svg
-                width="18"
-                height="18"
+                width="20"
+                height="20"
                 viewBox="0 0 15 15"
                 fill="none"
                 stroke="currentColor"
@@ -123,7 +123,9 @@ const NavMenu = ({ closeMenu }: { closeMenu: () => void }) => {
                         onClick={closeMenu}
                     >
                         {item.svg}
-                        <p className=" sm:hidden lg:block">{item.name}</p>
+                        <p className=" text-lg sm:hidden lg:block ">
+                            {item.name}
+                        </p>
                     </NavLink>
                 </li>
             ))}
