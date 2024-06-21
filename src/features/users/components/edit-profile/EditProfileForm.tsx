@@ -40,7 +40,7 @@ const EditProfileForm = forwardRef(
         const {
             handleSubmit,
             register,
-            formState: { errors },
+            formState: { errors, isDirty },
             control,
             setValue,
         } = useForm<FormType>({
@@ -94,7 +94,10 @@ const EditProfileForm = forwardRef(
 
         const onSubmit: SubmitHandler<FormType> = (data) => {
             const formData = new FormData()
-
+            if (!isDirty) {
+                close()
+                return
+            }
             for (const [key, value] of Object.entries(data)) {
                 if (key === 'userImage' || key === 'backgroundImage') {
                     value.forEach((file: File) => formData.append(key, file))

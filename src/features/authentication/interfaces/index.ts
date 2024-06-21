@@ -20,7 +20,7 @@ export interface IUser {
     username: string
     userImage: string
     bornDate: string
-    joinedDate: string
+    createdAt: string
     backgroundImage: string
 }
 export interface IUserPreview {

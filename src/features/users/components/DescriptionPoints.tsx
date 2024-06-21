@@ -9,7 +9,7 @@ const DescriptionPoints = ({ userData }: { userData: IUser }) => {
     const allPointsExist =
         userData?.location &&
         userData?.link &&
-        userData?.joinedDate &&
+        userData?.createdAt &&
         userData?.bornDate
 
     return (
@@ -47,7 +47,7 @@ const DescriptionPoints = ({ userData }: { userData: IUser }) => {
                     </p>
                 </div>
             )}
-            {userData?.joinedDate && (
+            {userData?.createdAt && (
                 <div className=" flex items-center gap-2">
                     <CalendarIconSvg
                         width={20}
@@ -56,10 +56,7 @@ const DescriptionPoints = ({ userData }: { userData: IUser }) => {
                     />
                     <p>
                         Joined{' '}
-                        {format(
-                            parseISO(userData?.joinedDate),
-                            'MMMM dd, yyyy'
-                        )}
+                        {format(parseISO(userData?.createdAt), 'MMMM dd, yyyy')}
                     </p>
                 </div>
             )}

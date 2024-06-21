@@ -12,13 +12,13 @@ interface Props {
 }
 
 const Post = ({ post }: Props) => {
-    const createdDate = new Date(post.dateCreated)
+    const createdDate = new Date(post.createdAt)
     return (
         <div className=" border-b border-accent p-5 md:p-10">
             <div className=" flex gap-3">
                 <UserIconLink
-                    username={post.author.username}
-                    userImage={post.author.userImage}
+                    username={post.author?.username}
+                    userImage={post.author?.userImage}
                 />
 
                 <div className=" flex flex-1 flex-col gap-5">
@@ -26,11 +26,11 @@ const Post = ({ post }: Props) => {
                         <div className=" flex justify-between ">
                             <div className="flex items-center gap-2 text-sm">
                                 <p className=" font-medium text-secondary">
-                                    {post.author.firstName}{' '}
-                                    {post.author.secondName}
+                                    {post.author?.firstName}{' '}
+                                    {post.author?.secondName}
                                 </p>
                                 <p className=" hidden sm:block">
-                                    @{post.author.username}
+                                    @{post.author?.username}
                                 </p>
                                 <p>·</p>
                                 <p>{convertPostDate(createdDate)}</p>

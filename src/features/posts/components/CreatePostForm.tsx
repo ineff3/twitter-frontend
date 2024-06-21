@@ -6,13 +6,16 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { GifIcon, ScheduleIcon, StatsIcon } from '../../../components/ui/icons'
 import useCreatePost from '../hooks/useCreatePost'
-import { CreatePostFormType, IPost } from '../interfaces'
+import { CreatePostFormType } from '../interfaces'
 import AttachPicture from './post-creation/AttachPicture'
 import AttachedPictures from './post-creation/AttachedPictures'
 import AttachEmoji from './post-creation/AttachEmoji'
 import useQueryKeyStore from '../../../utils/api/useQueryKeyStore'
 import CloseBtn from '../../../components/ui/CloseBtn'
 import { IPostsResponse } from '../../../utils/api/interfaces'
+import { useState } from 'react'
+import ErrorAlert from '../../../components/ui/ErrorAlert'
+import { AxiosError } from 'axios'
 
 interface IProps {
     close: () => void
@@ -59,6 +62,7 @@ const validationSchema = z
     })
 
 const CreatePostForm = ({ close }: IProps) => {
+    const [creationError, setCreationError] = useState<string | null>(null)
     const queryClient = useQueryClient()
     const queryKeyStore = useQueryKeyStore()
     const user: IUserPreview | undefined = queryClient.getQueryData(
@@ -93,6 +97,13 @@ const CreatePostForm = ({ close }: IProps) => {
         })
         formData.append('text', data.text)
         createPostMutation.mutate(formData, {
+            onError: (error) => {
+                if (error instanceof AxiosError) {
+                    setCreationError(
+                        error.response?.data?.message || 'Something went wrong'
+                    )
+                }
+            },
             onSuccess: (newPost) => {
                 queryClient.setQueryData(
                     queryKeyStore.posts.all.queryKey,
@@ -163,6 +174,7 @@ const CreatePostForm = ({ close }: IProps) => {
             </div>
 
             <div>
+                {creationError && <ErrorAlert errorMessage={creationError} />}
                 <div className=" divider"></div>
                 <div className=" flex  items-center justify-between">
                     <div className=" flex items-center gap-1.5 ">

@@ -12,7 +12,7 @@ export interface IPost {
     likedBy: number
     isLiked: boolean
     isBookmarked: boolean
-    dateCreated: string
+    createdAt: string
     text?: string
     postImages: string[]
 }

@@ -47,7 +47,6 @@ const LoginForm = ({ setErrorMessage }: Props) => {
     const onSubmit: SubmitHandler<formType> = (data) => {
         loginMutation.mutate(data, {
             onError: (err) => {
-                console.log(err)
                 if (err instanceof AxiosError) {
                     if (err.response?.status === 401) {
                         setErrorMessage(
@@ -59,7 +58,6 @@ const LoginForm = ({ setErrorMessage }: Props) => {
                 }
             },
             onSuccess(result) {
-                console.log(result)
                 if (data.persist) {
                     localStorage.setItem('persist', 'persist')
                 }

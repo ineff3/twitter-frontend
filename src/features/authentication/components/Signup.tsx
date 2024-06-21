@@ -9,6 +9,7 @@ import CloseBtn from '../../../components/ui/CloseBtn'
 
 const Signup = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
+    console.log(errorMessage)
     const navigate = useNavigate()
     const { show, close, visible } = useModal(true)
     const closeWithPageShift = () => {

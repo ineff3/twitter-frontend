@@ -59,17 +59,19 @@ const SignupForm = ({ setErrorMessage }: Props) => {
     const onSubmit: SubmitHandler<formType> = (data) => {
         signupMutation.mutate(data, {
             onError: (err) => {
-                console.log(err)
                 if (err instanceof AxiosError) {
                     if (err.response?.status === 409) {
                         setErrorMessage('User with such email already exists')
+                    } else if (err.response?.status === 400) {
+                        setErrorMessage(
+                            err.response.data?.message || 'Something went wrong'
+                        )
                     }
                 } else {
                     setErrorMessage('Something went wrong. Please try again!')
                 }
             },
             onSuccess: () => {
-                console.log('Successfully signuped')
                 loginMutation.mutate(
                     { email: data.email, password: data.password },
                     {
@@ -132,8 +134,11 @@ const SignupForm = ({ setErrorMessage }: Props) => {
             />
             <button
                 type="submit"
-                className="btn btn-primary mt-5 w-fit  self-center px-10"
+                className={`btn btn-primary mt-5 w-fit  self-center px-10 ${signupMutation.isPending && loginMutation.isPending ? 'btn-disabled' : ''}`}
             >
+                {signupMutation.isPending && loginMutation.isPending && (
+                    <span className="loading loading-spinner"></span>
+                )}
                 Sign Up
             </button>
         </form>

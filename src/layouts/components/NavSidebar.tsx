@@ -27,8 +27,8 @@ const NavSidebar = ({
                                 onClick={closeMenu}
                             >
                                 <XIconSvg
-                                    width={25}
-                                    height={25}
+                                    width={22}
+                                    height={22}
                                     fill="currentColor"
                                 />
                             </Link>
