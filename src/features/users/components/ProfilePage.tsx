@@ -28,11 +28,6 @@ const ProfilePage = () => {
 
     const userData = data.userData
 
-    const imgURL = new URL(
-        userData?.userImage,
-        import.meta.env.VITE_API_BASE_URL
-    )
-
     return (
         <div className=" flex h-full flex-col">
             <header className=" flex items-center justify-start gap-4 border-b border-accent px-10 py-1.5">
@@ -62,14 +57,9 @@ const ProfilePage = () => {
                 </div>
             </header>
             <div className=" h-[250px] bg-base-200">
-                {userData?.backgroundImage && (
+                {userData?.backgroundImageUrl && (
                     <img
-                        src={
-                            new URL(
-                                userData?.backgroundImage,
-                                import.meta.env.VITE_API_BASE_URL
-                            ).href
-                        }
+                        src={userData?.backgroundImageUrl}
                         alt="Background Image"
                         className=" h-full w-full object-cover"
                     />
@@ -80,9 +70,9 @@ const ProfilePage = () => {
                 <div className=" px-10">
                     <div className=" flex h-[140px] items-center justify-between">
                         <div className=" h-[110px] w-[110px] overflow-hidden rounded-full bg-base-100">
-                            {userData?.userImage ? (
+                            {userData?.userImageUrl ? (
                                 <img
-                                    src={String(imgURL)}
+                                    src={userData?.userImageUrl}
                                     alt="Profile Image"
                                     className="h-full w-full object-cover"
                                 />

@@ -19,14 +19,17 @@ export interface IUser {
     email: string
     username: string
     userImage: string
+    userImageUrl: string
     bornDate: string
     createdAt: string
     backgroundImage: string
+    backgroundImageUrl: string
 }
 export interface IUserPreview {
     _id: string
     firstName: string
     username: string
+    userImageUrl: string
     userImage: string
 }
 

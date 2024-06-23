@@ -19,20 +19,13 @@ const UserPreview = ({ closeMenu }: { closeMenu: () => void }) => {
         staleTime: Infinity,
         gcTime: Infinity,
     })
-    let imgURL = undefined
-    if (user?.data?.userImage) {
-        imgURL = new URL(
-            user?.data?.userImage,
-            import.meta.env.VITE_API_BASE_URL
-        )
-    }
 
     return (
         <div className=" flex items-center gap-2 sm:flex-col lg:flex-row">
             <UserIconLink
                 onClick={closeMenu}
+                userImageUrl={user?.data?.userImageUrl}
                 username={user?.data?.username}
-                userImage={user?.data?.userImage}
             />
             <div className=" flex w-full items-center justify-between sm:justify-center lg:justify-between ">
                 <div className=" flex flex-col sm:hidden lg:flex">

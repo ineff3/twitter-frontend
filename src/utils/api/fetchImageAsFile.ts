@@ -4,7 +4,6 @@ const fetchImageAsFile = async (url: string, fileName: string) => {
     try {
         const response = await axios.get(url, {
             responseType: 'blob',
-            withCredentials: true,
         })
         const mimeType = response.headers['content-type'] || 'image/jpeg'
         const fileExtension = mimeType.split('/')[1]

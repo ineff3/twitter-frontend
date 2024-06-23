@@ -4,6 +4,7 @@ interface IPostAuthor {
     secondName: string
     username: string
     userImage: string
+    userImageUrl: string
 }
 
 export interface IPost {
@@ -15,6 +16,7 @@ export interface IPost {
     createdAt: string
     text?: string
     postImages: string[]
+    postImageUrls: string[]
 }
 
 export interface CreatePostFormType {

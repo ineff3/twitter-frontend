@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom'
 
 interface Props {
     username?: string
-    userImage?: string
+    userImageUrl?: string
     onClick?: () => void
 }
 
-const UserIconLink = ({ username, userImage, onClick }: Props) => {
-    const imgURL = new URL(userImage || '', import.meta.env.VITE_API_BASE_URL)
+const UserIconLink = ({ username, userImageUrl, onClick }: Props) => {
     return (
         <>
             <Link
@@ -16,9 +15,9 @@ const UserIconLink = ({ username, userImage, onClick }: Props) => {
                 className=" h-[45px] w-[45px] flex-shrink-0 overflow-hidden rounded-full"
                 onClick={onClick}
             >
-                {userImage ? (
+                {userImageUrl ? (
                     <img
-                        src={String(imgURL)}
+                        src={userImageUrl}
                         alt="Profile image"
                         className="h-full w-full object-cover"
                     />

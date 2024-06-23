@@ -150,8 +150,8 @@ const CreatePostForm = ({ close }: IProps) => {
 
             <div className="flex flex-1 gap-2 px-1.5">
                 <UserIconLink
+                    userImageUrl={user?.userImageUrl}
                     username={user?.username}
-                    userImage={user?.userImage}
                 />
                 <div className=" flex w-full flex-col gap-5">
                     <label className=" form-control">
@@ -208,9 +208,12 @@ const CreatePostForm = ({ close }: IProps) => {
 
                     <button
                         type="submit"
-                        className={`  btn btn-primary btn-sm ${(errors?.postImages || errors?.text || !isDirty) && 'btn-disabled !bg-base-200'} `}
+                        className={`  btn btn-primary btn-sm ${(errors?.postImages || errors?.text || !isDirty || createPostMutation.isPending) && 'btn-disabled !bg-base-200'} `}
                     >
-                        Post
+                        <p>Post</p>
+                        {createPostMutation.isPending && (
+                            <span className="loading loading-spinner loading-sm"></span>
+                        )}
                     </button>
                 </div>
             </div>

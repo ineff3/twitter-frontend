@@ -4,7 +4,6 @@ import {
     Control,
     Controller,
     FieldErrors,
-    RegisterOptions,
     SubmitHandler,
     UseFormRegister,
     useForm,
@@ -62,10 +61,10 @@ const EditProfileForm = forwardRef(
         // getting File objects for server images, to set initial form value
         useEffect(() => {
             const loadUserImageFile = async () => {
-                if (user.userImage) {
+                if (user?.userImageUrl) {
                     try {
                         const file = await fetchImageAsFile(
-                            user.userImage,
+                            user?.userImageUrl,
                             'userImage'
                         )
                         setValue('userImage', [file])
@@ -75,11 +74,11 @@ const EditProfileForm = forwardRef(
                 }
             }
             const loadBackgroundImageFile = async () => {
-                if (user.backgroundImage) {
+                if (user.backgroundImageUrl) {
                     try {
                         const file = await fetchImageAsFile(
-                            user.backgroundImage,
-                            'userImage'
+                            user?.backgroundImageUrl,
+                            'backgroundImage'
                         )
                         setValue('backgroundImage', [file])
                     } catch (err) {

@@ -17,8 +17,8 @@ const Post = ({ post }: Props) => {
         <div className=" border-b border-accent p-5 md:p-10">
             <div className=" flex gap-3">
                 <UserIconLink
+                    userImageUrl={post.author?.userImageUrl}
                     username={post.author?.username}
-                    userImage={post.author?.userImage}
                 />
 
                 <div className=" flex flex-1 flex-col gap-5">
@@ -42,22 +42,17 @@ const Post = ({ post }: Props) => {
                         {post.text && (
                             <p className="  text-secondary">{post.text}</p>
                         )}
-                        {post?.postImages?.length > 0 && (
+                        {post?.postImageUrls?.length > 0 && (
                             <div
-                                className={` grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))]  overflow-hidden rounded-lg ${post.postImages.length > 2 ? 'max-h-[550px] grid-rows-2 ' : 'max-h-[500px] grid-rows-1'}  `}
+                                className={` grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))]  overflow-hidden rounded-lg ${post.postImageUrls.length > 2 ? 'max-h-[550px] grid-rows-2 ' : 'max-h-[500px] grid-rows-1'}  `}
                             >
-                                {post.postImages?.map((path, index) => (
+                                {post.postImageUrls?.map((path, index) => (
                                     <div
                                         key={index}
-                                        className={` ${post.postImages.length === 3 && index === 0 && 'col-span-2'}`}
+                                        className={` ${post.postImageUrls.length === 3 && index === 0 && 'col-span-2'}`}
                                     >
                                         <img
-                                            src={String(
-                                                new URL(
-                                                    path || '',
-                                                    import.meta.env.VITE_API_BASE_URL
-                                                )
-                                            )}
+                                            src={path}
                                             alt="Post Image"
                                             className="h-full w-full object-cover"
                                         />
