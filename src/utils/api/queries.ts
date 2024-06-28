@@ -98,7 +98,7 @@ export const usePut = <T, S, R = void>({
     )
 }
 
-export const useDelete = <T, S, R>({
+export const useDelete = <T, S, R = void>({
     path,
     qKey,
     updater,

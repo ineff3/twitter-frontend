@@ -6,7 +6,7 @@ import { IPostsResponse } from '../../../utils/api/interfaces'
 
 const useDeletePost = () => {
     const queryKeyStore = useQueryKeyStore()
-    return useDelete<InfiniteData<IPostsResponse>>({
+    return useDelete<InfiniteData<IPostsResponse>, string>({
         path: apiRoutes.posts,
         qKey: queryKeyStore.posts.all.queryKey,
         updater: (oldData, deletedPostId) => {
