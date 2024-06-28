@@ -5,7 +5,6 @@ import usePrefetchUserData from '../../hooks/usePrefetchUserData'
 
 const UserFetch = () => {
     const [isLoading, setIsLoading] = useState(true)
-    const queryClient = useQueryClient()
 
     const prefetchUserData = usePrefetchUserData()
 

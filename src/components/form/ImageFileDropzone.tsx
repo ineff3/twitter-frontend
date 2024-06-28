@@ -9,6 +9,8 @@ interface Props {
 }
 
 const ImageFileDropzone = ({ onChange, value, icon: Icon }: Props) => {
+    const valueHasDefinedElements =
+        value && value.length > 0 && value.every((el) => el)
     return (
         <Dropzone
             onDrop={(acceptedFiles) => {
@@ -28,7 +30,7 @@ const ImageFileDropzone = ({ onChange, value, icon: Icon }: Props) => {
                     {...getRootProps()}
                 >
                     <input {...getInputProps()} />
-                    {value?.length ? (
+                    {valueHasDefinedElements ? (
                         value.map((el, index) => (
                             <div className="h-full w-full" key={index}>
                                 <img

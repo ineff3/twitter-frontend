@@ -9,7 +9,9 @@ interface IBodyData {
 }
 
 const useCheckUsername = () => {
-    return usePost<IBodyData, IBodyData, IResponse>(apiRoutes.checkUsername)
+    return usePost<IBodyData, IBodyData, IResponse>({
+        path: apiRoutes.checkUsername,
+    })
 }
 
 export default useCheckUsername

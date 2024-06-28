@@ -12,7 +12,7 @@ interface Props {
     children?: ReactNode
     staticMode?: boolean
     asWindow?: boolean
-    maxWidth?: 'max-w-md' | 'max-w-lg' | 'max-w-xl'
+    maxWidth?: 'max-w-md' | 'max-w-lg' | 'max-w-xl' | 'max-w-sm'
     hasPadding?: boolean
 }
 

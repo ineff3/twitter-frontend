@@ -12,6 +12,8 @@ export const apiRoutes = {
     posts: 'posts',
     likePost: 'posts/like',
     bookmarkPost: 'posts/bookmark',
+    //drafts
+    drafts: 'drafts',
 }
 
 export const pageRoutes = {
@@ -21,4 +23,5 @@ export const pageRoutes = {
     authSignup: '/auth/signup',
     signupFlow: '/signup-flow',
     post: '/post',
+    drafts: 'drafts',
 }

@@ -11,7 +11,7 @@ import {
 import { z } from 'zod'
 import Input from '../../../../components/form/Input'
 import Textarea from '../../../../components/form/Textarea'
-import { forwardRef, useEffect } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import ImageFileDropzone from '../../../../components/form/ImageFileDropzone'
 import fetchImageAsFile from '../../../../utils/api/fetchImageAsFile'
@@ -36,6 +36,7 @@ type FormType = z.infer<typeof validationSchema>
 
 const EditProfileForm = forwardRef(
     ({ user, close }: Props, ref: React.ForwardedRef<HTMLButtonElement>) => {
+        const [isImageLoading, setIsImageLoading] = useState(true)
         const {
             handleSubmit,
             register,
@@ -62,32 +63,25 @@ const EditProfileForm = forwardRef(
         useEffect(() => {
             const loadUserImageFile = async () => {
                 if (user?.userImageUrl) {
-                    try {
-                        const file = await fetchImageAsFile(
-                            user?.userImageUrl,
-                            'userImage'
-                        )
-                        setValue('userImage', [file])
-                    } catch (err) {
-                        console.log(err)
-                    }
+                    const file = await fetchImageAsFile(
+                        user?.userImageUrl,
+                        'userImage'
+                    )
+                    setValue('userImage', [file])
                 }
             }
             const loadBackgroundImageFile = async () => {
                 if (user.backgroundImageUrl) {
-                    try {
-                        const file = await fetchImageAsFile(
-                            user?.backgroundImageUrl,
-                            'backgroundImage'
-                        )
-                        setValue('backgroundImage', [file])
-                    } catch (err) {
-                        console.log(err)
-                    }
+                    const file = await fetchImageAsFile(
+                        user?.backgroundImageUrl,
+                        'backgroundImage'
+                    )
+                    setValue('backgroundImage', [file])
                 }
             }
             loadUserImageFile()
             loadBackgroundImageFile()
+            setIsImageLoading(false)
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [])
 
@@ -105,7 +99,7 @@ const EditProfileForm = forwardRef(
                 }
             }
             editProfileMutation.mutate(formData, {
-                onSuccess: () => {
+                onSettled: () => {
                     queryClient.invalidateQueries({
                         queryKey: queryKeyStore.users.detail(user.username)
                             .queryKey,
@@ -119,6 +113,12 @@ const EditProfileForm = forwardRef(
                 },
             })
             close()
+        }
+
+        if (isImageLoading) {
+            return (
+                <div className=" loading loading-spinner loading-md text-center"></div>
+            )
         }
 
         return (

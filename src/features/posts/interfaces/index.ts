@@ -23,3 +23,9 @@ export interface CreatePostFormType {
     text: string
     postImages: { file: File }[]
 }
+
+export interface IDraft {
+    _id: string
+    text: string
+    draftImageUrls: string[]
+}

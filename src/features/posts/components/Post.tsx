@@ -6,12 +6,22 @@ import LikeSection from './post-items/LikeSection'
 import RepostIconSvg from '../../../components/ui/icons/RepostIconSvg'
 import CommentIconSvg from '../../../components/ui/icons/CommentIconSvg'
 import BookmarkSection from './post-items/BookmarkSection'
+import PostOptions from './post-items/PostOptions'
+import { useQueryClient } from '@tanstack/react-query'
+import useQueryKeyStore from '../../../utils/api/useQueryKeyStore'
+import { IUserPreview } from '../../authentication/interfaces'
 
 interface Props {
     post: IPost
 }
 
 const Post = ({ post }: Props) => {
+    const queryClient = useQueryClient()
+    const queryKeyStore = useQueryKeyStore()
+    const userPreviewData: IUserPreview | undefined = queryClient.getQueryData(
+        queryKeyStore.users.currentUserPreview.queryKey
+    )
+    const isPostAuthor = userPreviewData?._id === post.author.id
     const createdDate = new Date(post.createdAt)
     return (
         <div className=" border-b border-accent p-5 md:p-10">
@@ -35,9 +45,10 @@ const Post = ({ post }: Props) => {
                                 <p>·</p>
                                 <p>{convertPostDate(createdDate)}</p>
                             </div>
-                            <button className=" btn btn-ghost btn-sm">
-                                <SlOptions size={18} />
-                            </button>
+                            <PostOptions
+                                isPostAuthor={isPostAuthor}
+                                postId={post?._id}
+                            />
                         </div>
                         {post.text && (
                             <p className="  text-secondary">{post.text}</p>

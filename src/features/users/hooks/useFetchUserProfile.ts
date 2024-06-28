@@ -6,7 +6,6 @@ const useFetchUserProfile = (username: string) => {
     return useQuery({
         ...querykeyStore.users.detail(username),
         staleTime: Infinity,
-        gcTime: Infinity,
     })
 }
 

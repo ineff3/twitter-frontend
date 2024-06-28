@@ -10,10 +10,10 @@ interface ILikePostData {
 
 const useLikePost = () => {
     const queryKeyStore = useQueryKeyStore()
-    return usePost<InfiniteData<IPostsResponse>, ILikePostData, null>(
-        apiRoutes.likePost,
-        queryKeyStore.posts.all.queryKey,
-        (oldData, newData) => {
+    return usePost<InfiniteData<IPostsResponse>, ILikePostData>({
+        path: apiRoutes.likePost,
+        qKey: queryKeyStore.posts.all.queryKey,
+        updater: (oldData, newData) => {
             if (!oldData) return oldData
 
             const updatedPages = oldData.pages.map((page) => ({
@@ -35,8 +35,8 @@ const useLikePost = () => {
                 ...oldData,
                 pages: updatedPages,
             }
-        }
-    )
+        },
+    })
 }
 
 export default useLikePost

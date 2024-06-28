@@ -10,14 +10,14 @@ interface IUpdateUsernameBody {
 
 const useUpdateUsername = () => {
     const queryKeyStore = useQueryKeyStore()
-    return useUpdate<IUserPreview, IUpdateUsernameBody>(
-        apiRoutes.users,
-        queryKeyStore.users.currentUserPreview.queryKey,
-        (oldData, newData) => ({
+    return useUpdate<IUserPreview, IUpdateUsernameBody>({
+        path: apiRoutes.users,
+        qKey: queryKeyStore.users.currentUserPreview.queryKey,
+        updater: (oldData, newData) => ({
             ...oldData,
             ...newData,
-        })
-    )
+        }),
+    })
 }
 
 export default useUpdateUsername

@@ -113,7 +113,7 @@ const NavMenu = ({ closeMenu }: { closeMenu: () => void }) => {
             {menuItems.map((item, index) => (
                 <li
                     key={index}
-                    className={` ${location.pathname === item.path ? '  before:w-[3.5px] ' : ''} before:content-[" "] before:absolute before:inline-block before:h-[36px] before:bg-primary `}
+                    className={` ${location.pathname === item.path ? '  before:w-[3.5px] ' : ''} before:content-[" "] before:absolute before:inline-block before:h-[44px] before:bg-primary `}
                 >
                     <NavLink
                         className={({ isActive }) =>

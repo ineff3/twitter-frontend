@@ -1,13 +1,9 @@
 import { createQueryKeyStore } from '@lukemorales/query-key-factory'
 import { useApi } from './actions'
-import { IPost } from '../../features/posts/interfaces'
 import { apiRoutes } from '../../routes'
 import { IUserPreview } from '../../features/authentication/interfaces'
-import {
-    IPostsResponse,
-    IUserDetailResponse,
-    IUsernamesResponse,
-} from './interfaces'
+import { IUserDetailResponse, IUsernamesResponse } from './interfaces'
+import { IDraft } from '../../features/posts/interfaces'
 
 const useQueryKeyStore = () => {
     const { get } = useApi()
@@ -19,7 +15,17 @@ const useQueryKeyStore = () => {
                     bookmarked: {
                         queryKey: null,
                     },
+                    liked: {
+                        queryKey: null,
+                    },
+                    user: (userId: string) => ({
+                        queryKey: [userId],
+                    }),
                 },
+            },
+            drafts: {
+                queryKey: null,
+                queryFn: () => get<IDraft[]>(apiRoutes.drafts),
             },
         },
 

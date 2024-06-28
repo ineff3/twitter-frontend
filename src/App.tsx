@@ -18,6 +18,7 @@ import {
     SignupPage,
 } from './pages'
 import { pageRoutes } from './routes'
+import { DraftsContent } from './features/posts'
 
 const App = () => {
     const location = useLocation()
@@ -59,7 +60,12 @@ const App = () => {
             {/* Render the modal if the backgroundLocation is set */}
             {state?.backgroundLocation && (
                 <Routes>
-                    <Route path={pageRoutes.post} element={<PostModal />} />
+                    <Route path={pageRoutes.post} element={<PostModal />}>
+                        <Route
+                            path={pageRoutes.drafts}
+                            element={<DraftsContent />}
+                        />
+                    </Route>
                 </Routes>
             )}
         </>
