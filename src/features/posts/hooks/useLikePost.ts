@@ -1,30 +1,26 @@
 import { InfiniteData } from '@tanstack/react-query'
 import { apiRoutes } from '../../../routes'
 import { IPostsResponse } from '../../../utils/api/interfaces'
-import { usePost } from '../../../utils/api/queries'
+import { useUpdate } from '../../../utils/api/queries'
 import useQueryKeyStore from '../../../utils/api/useQueryKeyStore'
 
-interface ILikePostData {
-    postId: string
-}
-
-const useLikePost = () => {
+const useLikePost = (postId: string) => {
     const queryKeyStore = useQueryKeyStore()
-    return usePost<InfiniteData<IPostsResponse>, ILikePostData>({
-        path: apiRoutes.likePost,
+    return useUpdate<InfiniteData<IPostsResponse>, void>({
+        path: apiRoutes.likePost(postId),
         qKey: queryKeyStore.posts.all.queryKey,
-        updater: (oldData, newData) => {
+        updater: (oldData) => {
             if (!oldData) return oldData
 
             const updatedPages = oldData.pages.map((page) => ({
                 ...page,
                 data: page.data.map((post) =>
-                    post._id === newData.postId
+                    post._id === postId
                         ? {
                               ...post,
-                              likedBy: post.isLiked
-                                  ? post.likedBy - 1
-                                  : post.likedBy + 1,
+                              likesCount: post.isLiked
+                                  ? post.likesCount - 1
+                                  : post.likesCount + 1,
                               isLiked: !post.isLiked,
                           }
                         : post

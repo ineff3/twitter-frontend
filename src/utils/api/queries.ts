@@ -102,7 +102,38 @@ export const useDelete = <T, S, R = void>({
     path,
     qKey,
     updater,
+    axiosOptions = {},
 }: IMutationProps<T, S>) => {
     const { delete: del } = useApi()
-    return useOptimisticMutation((id) => del<R>(`${path}/${id}`), qKey, updater)
+    return useOptimisticMutation(
+        (id) => del<R>(`${path}/${id}`, axiosOptions),
+        qKey,
+        updater
+    )
+}
+
+type KeyValuePair = {
+    key: string
+    value: string[]
+}
+
+export const useDeleteMultiple = <T, R = void>({
+    path,
+    qKey,
+    updater,
+    axiosOptions = {},
+}: IMutationProps<T, KeyValuePair>) => {
+    const { delete: del } = useApi()
+    return useOptimisticMutation(
+        ({ key, value }) => {
+            if (!Array.isArray(value)) {
+                throw new Error('The provided query parameter is not an array')
+            }
+            const urlSearchParams = new URLSearchParams()
+            value.forEach((id) => urlSearchParams.append(key, id))
+            return del<R>(`${path}?${urlSearchParams.toString()}`, axiosOptions)
+        },
+        qKey,
+        updater
+    )
 }

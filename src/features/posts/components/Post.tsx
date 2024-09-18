@@ -92,7 +92,7 @@ const Post = ({ post }: Props) => {
                         <div className=" flex items-center gap-1.5">
                             <LikeSection
                                 postId={post._id}
-                                likedBy={post.likedBy}
+                                likesCount={post.likesCount}
                                 isLiked={post.isLiked}
                             />
                         </div>

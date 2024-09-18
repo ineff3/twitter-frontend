@@ -3,47 +3,51 @@ import Modal from '../components/ui/Modal'
 import { CreatePostForm, ModalSaveDialog } from '../features/posts'
 import { useModal } from '../hooks/useModal'
 import { useRef, useState } from 'react'
+import {
+    PostProvider,
+    usePostContext,
+} from '../features/posts/contexts/PostContext'
+
+const ContextWrapper = () => {
+    return (
+        <PostProvider>
+            <PostModal />
+        </PostProvider>
+    )
+}
 
 const PostModal = () => {
-    const saveDraftRef = useRef<HTMLButtonElement | null>(null)
-    const [isFormDirty, setIsFormDirty] = useState(false)
+    const { isDirty, saveToDraft } = usePostContext()!
     const [saveDialogOpen, setSaveDialogOpen] = useState(false)
     const { visible } = useModal(true)
     const navigate = useNavigate()
     const closeModal = () => {
-        if (isFormDirty) {
+        if (isDirty) {
             setSaveDialogOpen(true)
         } else {
             navigate(-1)
         }
     }
-    const closeModalSaveDialog = () => {
-        setSaveDialogOpen(false)
-    }
-    const saveDraft = () => {
-        if (saveDraftRef.current) {
-            saveDraftRef.current.click()
-        }
-    }
+
     const hasOutlet = useOutlet()
 
     return (
         <Modal isOpen={visible} close={closeModal}>
-            {!hasOutlet && (
-                <CreatePostForm
-                    setIsFormDirty={setIsFormDirty}
-                    closeModal={closeModal}
-                    ref={saveDraftRef}
-                />
-            )}
+            {!hasOutlet && <CreatePostForm closeModal={closeModal} />}
             <Outlet />
             <ModalSaveDialog
-                save={saveDraft}
+                save={() => {
+                    saveToDraft()
+                    navigate(-1)
+                }}
                 isOpen={saveDialogOpen}
-                close={closeModalSaveDialog}
+                close={() => {
+                    setSaveDialogOpen(false)
+                    navigate(-1)
+                }}
             />
         </Modal>
     )
 }
 
-export default PostModal
+export default ContextWrapper

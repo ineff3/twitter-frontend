@@ -5,13 +5,13 @@ export const apiRoutes = {
     login: 'users/login',
     logout: 'users/logout',
     signUp: 'users/signup',
-    currentUserPreview: 'users/currentUserPreview',
+    currentUserPreview: 'users/preview',
     getUsernamesArray: 'users/usernames',
-    checkUsername: 'users/checkUsernameIsReserved',
+    checkUsername: 'users/check-username',
     //posts
     posts: 'posts',
-    likePost: 'posts/like',
-    bookmarkPost: 'posts/bookmark',
+    likePost: (postId: string) => `posts/${postId}/like`,
+    bookmarkPost: (postId: string) => `posts/${postId}/bookmark`,
     //drafts
     drafts: 'drafts',
 }

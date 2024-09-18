@@ -4,13 +4,13 @@ import useLikePost from '../../hooks/useLikePost'
 interface Props {
     postId: string
     isLiked: boolean
-    likedBy: number
+    likesCount: number
 }
 
-const LikeSection = ({ postId, isLiked, likedBy }: Props) => {
-    const postLikeMutation = useLikePost()
+const LikeSection = ({ postId, isLiked, likesCount }: Props) => {
+    const postLikeMutation = useLikePost(postId)
     const onPostLike = () => {
-        postLikeMutation.mutate({ postId: postId })
+        postLikeMutation.mutate()
     }
     return (
         <>
@@ -31,7 +31,7 @@ const LikeSection = ({ postId, isLiked, likedBy }: Props) => {
                 </div>
             </button>
 
-            <p>{likedBy}</p>
+            <p>{likesCount}</p>
         </>
     )
 }

@@ -2,16 +2,46 @@ import { useNavigate } from 'react-router-dom'
 import ArrowIconSvg from '../../../../components/ui/icons/ArrowIconSvg'
 import { useState } from 'react'
 import Drafts from './Drafts'
+import { useGetDrafts } from '../../hooks/drafts/drafts'
+import ErrorAlert from '../../../../components/ui/ErrorAlert'
+import { DraftProvider, useDraftContext } from '../../contexts/DraftContext'
+
+const DraftsContentParent = () => {
+    const { data, isLoading, isError } = useGetDrafts()
+    if (isLoading) {
+        return <div className=" loading-spinner loading-sm text-center"></div>
+    }
+    if (isError || !data) {
+        return (
+            <ErrorAlert errorMessage="An error occured while receiving the drafts" />
+        )
+    }
+
+    return (
+        <DraftProvider data={data}>
+            <DraftsContent />
+        </DraftProvider>
+    )
+}
 
 const DraftsContent = () => {
     const [editMode, setEditMode] = useState(false)
+    const { deleteSelectedDrafts, selectAll, deselectAll, hasSelected } =
+        useDraftContext()!
+
     const navigate = useNavigate()
     const onClickBack = () => {
         navigate(-1)
     }
     const changeMode = () => {
-        setEditMode((prev) => !prev)
+        setEditMode((prev) => {
+            if (prev) {
+                deselectAll()
+            }
+            return !prev
+        })
     }
+
     return (
         <div className=" flex flex-1 flex-col">
             <div className=" flex items-center gap-4">
@@ -33,13 +63,24 @@ const DraftsContent = () => {
             </div>
             <div className={` divider  `}></div>
             <div className=" h-[400px]">
-                <Drafts />
+                <Drafts editMode={editMode} />
             </div>
             <section className={` ${!editMode && 'hidden'}`}>
                 <div className=" divider  divider-primary"></div>
                 <div className=" flex flex-1 justify-between">
-                    <button className=" btn   btn-sm">Select All</button>
-                    <button className=" btn btn-outline btn-error btn-sm">
+                    {hasSelected ? (
+                        <button onClick={deselectAll} className=" btn btn-sm">
+                            Deselect All
+                        </button>
+                    ) : (
+                        <button onClick={selectAll} className=" btn btn-sm">
+                            Select All
+                        </button>
+                    )}
+                    <button
+                        onClick={deleteSelectedDrafts}
+                        className=" btn  btn-error btn-sm"
+                    >
                         Delete
                     </button>
                 </div>
@@ -48,4 +89,4 @@ const DraftsContent = () => {
     )
 }
 
-export default DraftsContent
+export default DraftsContentParent

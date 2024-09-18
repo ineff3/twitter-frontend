@@ -10,7 +10,7 @@ interface IPostAuthor {
 export interface IPost {
     _id: string
     author: IPostAuthor
-    likedBy: number
+    likesCount: number
     isLiked: boolean
     isBookmarked: boolean
     createdAt: string

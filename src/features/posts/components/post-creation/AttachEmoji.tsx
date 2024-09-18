@@ -3,8 +3,6 @@ import Picker from '@emoji-mart/react'
 import { SmileIcon } from '../../../../components/ui/icons'
 import Modal from '../../../../components/ui/Modal'
 import { useModal } from '../../../../hooks/useModal'
-import { UseFormSetValue } from 'react-hook-form'
-import { CreatePostFormType } from '../../interfaces'
 
 const AttachEmoji = ({
     appendEmoji,

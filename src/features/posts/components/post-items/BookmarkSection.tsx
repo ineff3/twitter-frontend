@@ -8,10 +8,10 @@ interface Props {
 }
 
 const BookmarkSection = ({ postId, isBookmarked }: Props) => {
-    const useBookmarkPostMutatiton = useBookmarkPost()
+    const useBookmarkPostMutatiton = useBookmarkPost(postId)
 
     const onClick = () => {
-        useBookmarkPostMutatiton.mutate({ postId: postId })
+        useBookmarkPostMutatiton.mutate()
     }
     return (
         <button className=" btn btn-circle btn-ghost btn-sm" onClick={onClick}>
